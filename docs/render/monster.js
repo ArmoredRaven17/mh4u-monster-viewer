@@ -10,7 +10,7 @@
 //   parts   the mesh table's draw mask marks the proxy layer, listed per model as `hideIdx`; the
 //           ROM's parts table (monsters.json `partTable`, see partDrawnRom) switches the rest
 import * as THREE from 'three';
-import { loadGlb, getTexture, loader, poseCache, bust } from './assets.js';
+import { loadGlb, getTexture, loader, poseCache, bust, texCache } from './assets.js';
 import { skeletonClone, meshGroupId, gidBonesOf } from './skeleton.js';
 import { createMaterial, allMats } from './material.js';
 import { specFor, refForGlb } from './materials-db.js';
@@ -21,6 +21,48 @@ export const monsterMats = [];
 // Unmounting a monster has to give its materials back: both registries are plain arrays that would
 // otherwise only grow, a wireframe toggle would walk materials nobody can see, and the GPU would keep
 // every shader program alive. Textures are NOT disposed: the asset cache shares them between monsters.
+// THE TEXTURE CACHE, TRIMMED BY A SETTING -- the MHGU Monster Viewer's, copied so the viewers stay consistent
+// (Raven, relayed by the MHGU Monster Viewer agent 2026-10-12: "But I want the viewers to be consistent"). GU: Raven,
+// 2026-10-11, "Instead of dropping caching, let's have it as a setting. This way users with less RAM or dedicated GPUs,
+// can reduce the cache for less resource use", the control "Save Resources <------|------> Faster Loading", its unit
+// the MONSTER. assets.js's getTexture keeps every map it ever loaded (texCache) for the page's life. After each mount
+// the textures the monster's own meshes use are recorded against it; `keep` is how many recently viewed monsters keep
+// theirs (Infinity = all, as before). A map is dropped only when it belongs to no kept monster and no mounted mesh uses
+// it, and only if it was ever seen on a monster. A dropped map is disposed (its GPU copy freed) and taken out of the
+// cache; viewing that monster again loads it anew. The trim works on the TEXTURE OBJECTS each monster's meshes used,
+// not on cache keys (GU found getTexture's lack of in-flight dedupe making extra copies the cache never held).
+const texUse = new Map();          // monster id -> Set of Texture objects its meshes used (most recent last)
+function texturesOf(roots){
+  const out = new Set();
+  const add = v => { if (v && v.isTexture) out.add(v); };
+  const uniforms = u => { if (u) for (const k in u) add(u[k] && u[k].value); };
+  for (const root of roots) if (root) root.traverse(o => {
+    if (!(o.isMesh || o.isSkinnedMesh)) return;
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    for (const m of mats){
+      if (!m) continue;
+      for (const k in m) add(m[k]);                // map, emissiveMap, matcap ...
+      uniforms(m.uniforms);
+      uniforms((m.userData || {}).u);              // material.js's own uniform block (uEnv, uSpec)
+    }
+  });
+  return out;
+}
+export function trimTextureCache(roots, monId, keep){
+  const used = texturesOf(roots);
+  if (monId){ texUse.delete(monId); texUse.set(monId, used); }
+  if (!(keep >= 1) || keep === Infinity) return { dropped: 0, cached: texCache.size, monsters: texUse.size };
+  // the last `keep` monsters viewed (the mounted one among them) keep their maps; the older ones' are freed
+  const ids = [...texUse.keys()];
+  const old = ids.slice(0, Math.max(0, ids.length - keep));
+  const keepTex = new Set(used);
+  for (const id of ids.slice(old.length)) for (const t of texUse.get(id)) keepTex.add(t);
+  const free = new Set();
+  for (const id of old){ for (const t of texUse.get(id)) if (!keepTex.has(t)) free.add(t); texUse.delete(id); }
+  for (const [key, t] of [...texCache]) if (free.has(t)) texCache.delete(key);   // the next view loads it anew
+  for (const t of free) t.dispose();
+  return { dropped: free.size, cached: texCache.size, monsters: texUse.size };
+}
 export function releaseMonster(root){
   if (!root) return;
   const mine = new Set(root.userData.mats || []);
@@ -28,6 +70,9 @@ export function releaseMonster(root){
     if (!(o.isMesh || o.isSkinnedMesh)) return;
     if (o.material) mine.add(o.material);
     if (o.geometry) o.geometry.dispose();
+    // its skeleton's bone texture (skeletonClone makes one per mount) was never freed: measured 2026-10-12, one
+    // remount of Rathian left 14 more textures alive, exactly her skeletons that own one (GU's fix, its point 3)
+    if (o.isSkinnedMesh && o.skeleton) o.skeleton.dispose();
   });
   for (const m of mine){
     let i = monsterMats.indexOf(m); if (i >= 0) monsterMats.splice(i, 1);

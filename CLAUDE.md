@@ -20,6 +20,9 @@ Both script headers are the long reference. Worth knowing:
 
 - **A monster plays with what its own archive packs** (`manifest.json` per monster). Variants pack
   their base's lists; Apex forms pack the base's model. Don't pair models and lists by name.
+- **Apex forms are folded into their base** (`fold_apex`: `apex` = {id, name, lists}); the page's Apex
+  switch (`state.apex`, `listsOf`) swaps the lists in and sets cond 10 + effect layers. Furious Rajang,
+  Savage Deviljho and the other variants stay entries (Raven).
 - **LMT v67 rotation types 11/12/13 are bounded** (min + range * u14 / 16383) and RevilToolset reads
   them right -- the 3U viewer's `lmt_fix.py` patch does NOT apply to 4U.
 - **Two vertex formats RevilToolset doesn't know** (Tigrex, Brute/Molten Tigrex, Akantor, Khezu,
@@ -27,6 +30,9 @@ Both script headers are the long reference. Worth knowing:
 - `flip_v` and the ETC1A4 alpha re-expansion carry over from 3U unchanged (V flip verified on
   Rathian's eye material).
 - New 3DS textures (`romfs/snake`) are shipped where they exist; `--standard-tex` for the others.
+- **Alpha-blended materials carry `f` (feat AlphaConstant)** so render/material.js blends them by their
+  texture's alpha. 4U MRLs select no features, so the BSBlendAlpha state decides; without it every
+  blend layer drew its transparent texels solid (Najarala's black fins, Savage Deviljho's back slab).
 - **Species are hand-kept** (`scripts/species.py`); no table was found in the code. Say so wherever
   they're shown -- they are not ROM data.
 - **The parts table is in each monster's `emd` file** (`em_data.arc`, `scripts/parts4u.py`), not the
@@ -36,13 +42,21 @@ Both script headers are the long reference. Worth knowing:
   own whole tail (part 101), so the piece only shows once cut, as the tail on the ground. 3U's
   attachPiece path is not used for 4U. Conds 10/11 are 4U-only switches in
   render/monster.js.
+- **Parts-panel names come from the MHGU viewer** where the models match (`scripts/gu_parts.py`,
+  run by build_viewer.py): a GU part-review row is used only if every part of it the 4U model has is
+  the same geometry; hand-kept `PART_UI` wins. partUi kinds the page understands: per control
+  {label, value, options | optionNames, hidden}, and merged rows 'merge:a+b' {label, merge, options:
+  [[{key: value}, name]], value}. GU option keys are per state ('a|b'): only the first (base) counts.
 - Monsters with no rows fall back to `noTable` in `applyPartState`: pieces hidden, eyelids
   (`eyesClosedParts`) hidden.
 - Spawn defaults are 3U's (all inputs 0) except where `PART_UI` (build_viewer.py, the page's `partUi`)
   sets them from the MHGU viewer's choices: Kelbi Gender, Konchu unrolled, Bnahabra folded wings.
   Colour variants borrow their base's rows (`PARTS_FROM`).
 - Effect layers (`userData.effect`: add / revsub meshes) are off by default when `inGU` (the monster is
-  in the MHGU viewer, by name + `GU_ALIAS`), as GU does; 4U-only monsters draw them.
+  in the MHGU viewer, by name + `GU_ALIAS`), as GU does; 4U-only monsters draw them. `effectsDefault`
+  (build_viewer.py `EFFECTS_AT_SPAWN`) overrides that where GU itself draws them at spawn: Savage
+  Deviljho's body glow, Raging Brachydios' slime. For a monster GU also has, check GU's
+  `docs/part-review.json` and `materials.json` before deciding a look.
 - **Borrowed lists are retargeted** (`retarget_lists`): the viewer binds tracks by node name
   "<index>:<gid>", and a borrower often has the same gids in another order. Without the renamed copy
   those bones never move (Crimson Fatalis' front legs and neck, Rathalos on Rathian's lists).

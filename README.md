@@ -13,8 +13,12 @@ hit zones are not decoded yet.
 - Every monster whose archive packs a model and motion lists (see `monsters.json` `_about.excluded`
   for the props and placeholders left out)
 - What each monster plays with is what **its own archive packs**: Pink Rathian's `em003.arc` packs
-  its own model and Rathian's motion lists, Apex Rajang's packs Rajang's model and lists, Apex
-  Zinogre's packs Zinogre's model with three lists of its own. A shared model or list ships once.
+  its own model and Rathian's motion lists. A shared model or list ships once.
+- **Apex monsters are a state, not entries**: an Apex archive packs its base's model, materials,
+  textures and parts table unchanged, so the base monster gets an Apex switch. It plays the Apex's
+  lists (Apex Rajang and Apex Diablos add a list 4) and turns on the Frenzy state (condition 10: the
+  Virus layer and the angry eyes). That this is the Apex look is inferred, and the Apex particle
+  effects aren't drawn.
 - The monster's motion lists, clip by clip, with looping and frame-by-frame stepping
 - The game's own base textures, bound to each material by the game's own material files,
   including which materials are additive or alpha-blended. Where the cart carries a **New 3DS
@@ -29,7 +33,8 @@ hit zones are not decoded yet.
   The Bnahabra, Konchu and Melynx colour variants use their base's rows; the few monsters with no
   rows at all hide their pieces and only have their eyes opened.
 - Spawn choices the rows can't give follow the MHGU viewer: Kelbi's Gender (Male first), Konchu
-  unrolled, Bnahabra with folded wings.
+  unrolled, Bnahabra with folded wings. Rajang spawns with its fur and whole tail; Furious Rajang
+  enraged with its tail broken, as it starts its quests.
 - Effect layers (additive and reverse-subtractive overlays: rage veins, Frenzy layers, glows) are
   off by default on every monster the MHGU viewer also has, as GU draws them; the Parts panel's Show
   Effect Layers turns them on.

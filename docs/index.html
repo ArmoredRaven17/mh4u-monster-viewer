@@ -531,6 +531,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <div class="field"><label for="monType">Species Type</label><select id="monType"></select></div>
           <div class="field"><label for="monSel">Monster</label>
             <div class="row gap" id="monPick"><select id="monSel"></select><img id="monIcon" class="mon-icon" alt="" hidden></div></div>
+          <!-- THE APEX STATE (monsters.json `apex`): an Apex is its base monster's model in the Frenzy state with
+               its own lists, not an entry of its own (Raven, 2026-10-09: "we can simply apply the Apex state to a
+               model and effects"). Shown only on a monster that has one. -->
+          <label class="chk" id="monApexRow" hidden><input type="checkbox" id="monApex"><span id="monApexText">Apex</span></label>
         </div>
       </section>
 
@@ -784,6 +788,14 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <a href="https://armoredraven17.github.io/mh4u-armor-skills-explained/" target="_blank" rel="noopener">Armor Skills Explained</a>
         <span class="app-desc">Every MH4U armor skill: the game's own description, then what it actually does, with the numbers.</span>
       </li>
+      <li>
+        <a href="https://armoredraven17.github.io/mh4u-quest-randomizer/" target="_blank" rel="noopener">Quest Randomizer</a>
+        <span class="app-desc">Rolls a random MH4U quest and weapon when you can't decide what to hunt.</span>
+      </li>
+      <li>
+        <a href="https://armoredraven17.github.io/mh4u-armor-viewer/" target="_blank" rel="noopener">Armor Viewer</a>
+        <span class="app-desc">Renders a hunter in 3D with every MH4U armor piece swappable, so you can mix and match a set.</span>
+      </li>
       <li class="current">
         <span class="app-name">Monster Viewer <span class="app-here">you are here</span></span>
         <span class="app-desc">Renders every MH4U monster in 3D with its own motion lists, so you can watch what they actually do.</span>
@@ -811,6 +823,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <label class="chk"><input type="checkbox" id="setShotBg">Include the backdrop in screenshots</label>
     <div class="field"><label for="setClipFmt">Clip format</label><select id="setClipFmt" title="A video keeps no transparency; a frame sequence does, and saves as a zip of numbered frames"><option value="mp4">Video</option><option value="webp">Frame sequence, WebP</option><option value="png">Frame sequence, PNG</option></select></div>
     <p class="hint" id="setClipHint"></p>
+    <h3 class="stage-h">Texture Cache</h3>
+    <div class="row gap cache-row"><span class="hint">Save Resources</span><input type="range" id="setTexCache" min="0" max="5" step="1" style="flex:1"><span class="hint">Faster Loading</span></div>
+    <p class="hint" id="setTexCacheHint"></p>
     <h3 class="stage-h">Theme</h3>
     <div id="swatches" class="swatches"></div>
     <button id="themeClose" class="btn accent">Done</button>
@@ -1159,7 +1174,7 @@ import { loadMaterialsDb } from './render/materials-db.js';
 import { createFloorGrid } from './render/grid.js';
 import { loadMonster, releaseMonster, restoreBind, clipFor, clusterGroups, partsDrawn, applyParts, groupLabel,
          PART_MAIN, partControls, partStatus, partsDrawnRom, optionLabel, attachPiece, detachPiece, pieceCutBit,
-         setUndefinedMaterialVisible, setProxyVisible, proxyCount, hideEffects, effectCount,
+         setUndefinedMaterialVisible, setProxyVisible, proxyCount, hideEffects, effectCount, trimTextureCache,
          applyHeatmap, clearHeatmap, applyFlat, parseZones, heatColor, zoneCapsules,
          ZONE_CAPSULE_COLOURS, ZONE_CAPSULE_AUTO, zoneCapsuleColour,
          monsterMats } from './render/monster.js';
@@ -2556,7 +2571,7 @@ function applyCameraState(c){
 const state = { id: '', list: '', clip: '', groups: null, parts: {}, loop: true, tail: false,
                 anchor: false, groundLock: false,
                 // all OFF by default: see applyUndef, applyProxy and applyGap
-                undef: false, proxy: false, gap: false, effects: null,
+                undef: false, proxy: false, gap: false, effects: null, apex: false,
                 heat: '', heatTable: 0, zoneTab: 'raw', zoneShow: true, zonePos: null,
                 zoneColour: ZONE_CAPSULE_AUTO };
 // WHAT THE DEBUG PANEL SETS, AT THE VALUES THE APP OPENS WITH -- read off `state` before anything is
@@ -2583,10 +2598,14 @@ const monSel = document.getElementById('monSel'), monFilter = document.getElemen
       monListSel = document.getElementById('monList'), monClipSel = document.getElementById('monClip'),
       monGroupsEl = document.getElementById('monGroups'), monAbout = document.getElementById('monAbout'),
       monTail = document.getElementById('monTail'), monTailRow = document.getElementById('monTailRow'),
-      monFx = document.getElementById('monFx'), monFxRow = document.getElementById('monFxRow');
+      monFx = document.getElementById('monFx'), monFxRow = document.getElementById('monFxRow'),
+      monApex = document.getElementById('monApex'), monApexRow = document.getElementById('monApexRow'),
+      monApexText = document.getElementById('monApexText');
 
 function entry(){ return MON.monsters.find(e => e.id === state.id) || null; }
-function listOf(e){ return (e && e.lists.find(l => l.id === state.list)) || null; }
+// the lists the monster plays: its own, or with the Apex state on, every list its Apex's archive packs
+function listsOf(e){ return (e && (state.apex && e.apex ? e.apex.lists : e.lists)) || []; }
+function listOf(e){ return listsOf(e).find(l => l.id === state.list) || null; }
 function clipOf(l){ return (l && (l.clips || []).find(c => c.clip === state.clip)) || null; }
 const monName = e => (e && e.name) || null;
 const label = e => (monName(e) || e.id) + (monName(e) ? '' : ' (unnamed)');
@@ -2661,7 +2680,9 @@ function listOrder(a, b){
 }
 function buildLists(){
   const e = entry();
-  const lists = ((e && e.lists) || []).slice().sort(listOrder);
+  monApexRow.hidden = !(e && e.apex);
+  if (e && e.apex){ monApexText.textContent = e.apex.name; monApex.checked = !!state.apex; }
+  const lists = listsOf(e).slice().sort(listOrder);
   monListSel.innerHTML = lists.map(l =>
     '<option value="' + l.id + '">' + (l.label || ('List ' + l.id)) + ' &mdash; ' + (l.clips || []).length + ' clips' +
     (l.shared ? ' (shared)' : '') + '</option>').join('');
@@ -2688,14 +2709,14 @@ function paintAbout(){
   const iconSrc = e.icon;
   if (iconSrc){ icon.src = iconSrc; icon.hidden = false; icon.alt = monName(e) || e.id; }
   else { icon.hidden = true; }
-  const nclips = e.lists.reduce((n, l) => n + (l.clips || []).length, 0);
+  const nclips = listsOf(e).reduce((n, l) => n + (l.clips || []).length, 0);
   // The id leads and it is LABELLED: on its own "em001" reads as an unexplained code.
   // Size is always shown, even at 1.0, so the row count does not change between monsters.
   const rows = [
     ['ID', e.id],
     ['Bones', e.bones],
     ['Vertices', e.verts.toLocaleString()],
-    ['Motion lists', e.lists.length],
+    ['Motion lists', listsOf(e).length],
     ['Clips', nclips],
     // the size it is drawn at
     ['Size', (+sizeScale().toFixed(4)) + '\u00d7'],
@@ -2731,29 +2752,82 @@ let partCtl = [];
 // MH4U: `partUi` (monsters.json) gives a control what the rows cannot -- a spawn value, a name, named
 // options -- where the MHGU viewer settled them (Kelbi's Gender, Konchu's and Bnahabra's opening poses).
 const partUiOf = (e, c) => ((e && e.partUi) || {})[c.key] || {};
+// GU'S HANDLING OF PARTS, where the models match (scripts/gu_parts.py; Raven, 2026-10-09: "If they do,
+// follow GU's handling of parts"): a row takes GU's name and item names (`options`, or `optionNames` where
+// only some items have one), GU's `hidden` rows apply but are not shown, and a GU row 4U splits across
+// several controls is ONE row here -- partUi 'merge:a+b' = {label, merge: [keys], options: [[{key: value},
+// name]], value: index}, which sets all its members at once and hides their own rows.
+const partMerges = e => Object.entries((e && e.partUi) || {}).filter(([k]) => k.startsWith('merge:')).map(([k, m]) => Object.assign({ key: k }, m));
 function paintPartItems(e){
   for (const c of partCtl){
     const sel = monGroupsEl.querySelector('.field[data-row="' + c.key + '"] select');
     if (!sel) continue;
-    const named = new Map((partUiOf(e, c).options || []).map(([v, t]) => [v, t]));
+    const ui = partUiOf(e, c);
+    const named = new Map((ui.options || []).map(([v, t]) => [String(v), t]).concat(Object.entries(ui.optionNames || {})));
     for (const opt of sel.options)
-      opt.textContent = named.get(+opt.value) || optionLabel(c, +opt.value, partCtl, state.parts, e.partTable, e.partCode);
+      opt.textContent = named.get(opt.value) || optionLabel(c, +opt.value, partCtl, state.parts, e.partTable, e.partCode);
   }
+  // a merged row shows the item whose members all stand as the panel has them now
+  for (const m of partMerges(e)){
+    const sel = monGroupsEl.querySelector('.field[data-row="' + m.key + '"] select');
+    if (!sel) continue;
+    const i = m.options.findIndex(([combo]) => Object.entries(combo).every(([k, v]) => state.parts[k] === v));
+    sel.value = i >= 0 ? String(i) : '';
+  }
+}
+function buildMergedRow(e, m){
+  const row = document.createElement('div'); row.className = 'field';
+  row.dataset.row = m.key;
+  const lab = document.createElement('label');
+  lab.textContent = m.label;
+  lab.title = m.label + ' -- the MHGU viewer’s row ' + (m.gu || '') + ', over the 4U inputs ' + m.merge.join(', ');
+  const sel = document.createElement('select');
+  sel.title = lab.title;
+  m.options.forEach(([, text], i) => {
+    const opt = document.createElement('option');
+    opt.value = String(i); opt.textContent = text;
+    sel.appendChild(opt);
+  });
+  // where the members stand in no GU item, the row says so rather than naming the wrong one
+  const other = document.createElement('option'); other.value = ''; other.textContent = '(other)'; other.hidden = true;
+  sel.appendChild(other);
+  sel.onchange = () => {
+    const pick = m.options[+sel.value];
+    if (!pick) return;
+    Object.assign(state.parts, pick[0]);
+    applyPartState(); paintPartItems(e); saveState();
+  };
+  row.appendChild(lab); row.appendChild(sel); monGroupsEl.appendChild(row);
 }
 function buildPartControls(e){
   partCtl = partControls(e.partTable, e.parts || [], e.partCode);
   if (!state.parts || typeof state.parts !== 'object') state.parts = {};
+  const merges = partMerges(e);
+  const memberOf = new Map();
+  for (const m of merges){
+    for (const k of m.merge) memberOf.set(k, m);
+    // the merged row's spawn item sets its members' spawn values
+    const pick = (m.value !== undefined) ? m.options[m.value] : null;
+    if (pick) for (const c of partCtl) if (c.key in pick[0]) c.value = pick[0][c.key];
+  }
+  const built = new Set();
   for (const c of partCtl){
     const ui = partUiOf(e, c);
     if (ui.options) c.values = ui.options.map(o => o[0]);
     if (ui.value !== undefined && c.values.includes(ui.value)) c.value = ui.value;
-    if (ui.label) c.label = ui.label + ' (parts ' + c.parts.join(', ') + ')';
+    if (ui.label) c.label = ui.label;
     if (!c.values.includes(state.parts[c.key])) state.parts[c.key] = c.value;
+    const m = memberOf.get(c.key);
+    if (m){
+      if (!built.has(m.key) && !m.hidden){ buildMergedRow(e, m); built.add(m.key); }
+      continue;
+    }
+    if (ui.hidden) continue;
     const row = document.createElement('div'); row.className = 'field';
     row.dataset.row = c.key;
     const lab = document.createElement('label');
     lab.textContent = c.label;
-    lab.title = c.label + ' -- ' + c.rom;
+    lab.title = c.label + (ui.label ? ' (parts ' + c.parts.join(', ') + (ui.gu ? '; the MHGU viewer’s row ' + ui.gu : '') + ')' : '') + ' -- ' + c.rom;
     const sel = document.createElement('select');
     sel.title = lab.title;
     for (const v of c.values){
@@ -2870,7 +2944,10 @@ function applyPartState(){
 // THE EFFECT LAYERS: off on a monster the MHGU viewer also has (monsters.json inGU), as GU draws it, until the
 // Parts panel's Show Effect Layers turns them on; drawn on a 4U-only one. `state.effects` is null until the
 // box is touched, and goes back to null on a monster change, so each monster opens at its own default.
-const effectsShown = e => (state.effects === null || state.effects === undefined) ? !(e && e.inGU) : !!state.effects;
+// `effectsDefault` (monsters.json) overrides the GU rule where GU itself draws the layers at spawn: Savage
+// Deviljho's body glow, Raging Brachydios' slime (build_viewer.py EFFECTS_AT_SPAWN).
+const effectsShown = e => (state.effects === null || state.effects === undefined)
+  ? ((e && e.effectsDefault !== undefined) ? !!e.effectsDefault : !(e && e.inGU)) : !!state.effects;
 function applyEffects(){
   const e = entry();
   const n = Object.values(mounted).reduce((s, g) => s + effectCount(g), 0);
@@ -2903,10 +2980,41 @@ function setLoading(on){
 // camera -- and the screen has to span all three. Holding only across mount() would drop it on
 // an unposed monster at the previous monster's camera, which then jumps when frameAll runs.
 // The hold is counted, so mount()'s own hold nesting inside this one is harmless.
+// THE TEXTURE CACHE SETTING (render/monster.js trimTextureCache), the MHGU Monster Viewer's, kept the same so the
+// viewers are consistent (Raven, via the MHGU Monster Viewer agent, 2026-10-12). Six stops, each a number of
+// recently viewed monsters whose textures stay cached (the one on screen counts). Faster Loading (the last stop)
+// keeps everything, as the viewer always has, and is the default.
+const TEX_CACHE_STOPS = [1, 2, 3, 5, 8, Infinity];
+const TEX_CACHE_KEY = 'mh4u-monster-viewer-texcache';
+let texCacheStop = TEX_CACHE_STOPS.length - 1;
+try { const v = localStorage.getItem(TEX_CACHE_KEY); if (v !== null && +v >= 0 && +v < TEX_CACHE_STOPS.length) texCacheStop = +v; } catch (e) {}
+function paintTexCache(){
+  const el = document.getElementById('setTexCache'), hint = document.getElementById('setTexCacheHint');
+  if (el) el.value = String(texCacheStop);
+  const n = TEX_CACHE_STOPS[texCacheStop];
+  if (hint) hint.textContent = n === Infinity ? 'Textures of every monster you view stay cached.'
+    : n === 1 ? 'Only the current monster' + String.fromCharCode(8217) + 's textures stay cached.'
+    : 'Textures of the last ' + n + ' monsters you view stay cached.';
+}
+function trimTextures(){
+  const r = trimTextureCache(Object.values(mounted), state.id, TEX_CACHE_STOPS[texCacheStop]);
+  window.__texCache = r;
+  return r;
+}
+{
+  const el = document.getElementById('setTexCache');
+  if (el) el.oninput = () => {
+    texCacheStop = +el.value | 0;
+    try { localStorage.setItem(TEX_CACHE_KEY, String(texCacheStop)); } catch (e) {}
+    paintTexCache(); trimTextures();
+  };
+  paintTexCache();
+}
 async function remount({ play: withPlay = true, frame = true } = {}){
   setLoading(true);
   try {
     await mount();
+    trimTextures();
     // again after play(): mount() has only the T-pose box to go on, and the driver's bounds --
     // the union of the whole loop -- are what the parts should actually clear
     if (withPlay) { await play(); placeParts(); }
@@ -3697,7 +3805,7 @@ monTypeSel.onchange = () => {
   monSel.onchange();
 };
 monSel.onchange = async () => {
-  state.id = monSel.value; state.groups = null; state.parts = {}; state.effects = null; state.list = ''; state.clip = '';
+  state.id = monSel.value; state.groups = null; state.parts = {}; state.effects = null; state.apex = false; state.list = ''; state.clip = '';
   buildMonsterList();              // Species Type follows a monster picked from a search
   buildLists();
   await remount();
@@ -3706,6 +3814,21 @@ monSel.onchange = async () => {
 monListSel.onchange = async () => {
   state.list = monListSel.value; state.clip = '';
   buildClips(); await play(); saveState();
+};
+// THE APEX STATE: the Apex's lists in place of the base's, cond 10 (the Frenzy state: the Virus layer and the
+// angry eyes) on, and the effect layers shown so that layer draws. Inferred as the Apex look -- the Apex's
+// data is the base's and sets nothing -- and the Apex particle effects are not drawn. Turning it off puts the
+// monster back as it spawns.
+monApex.onchange = async () => {
+  const e = entry();
+  if (!e || !e.apex) return;
+  state.apex = monApex.checked;
+  if (!state.parts || typeof state.parts !== 'object') state.parts = {};
+  state.parts.c10 = state.apex ? 1 : 0;
+  state.effects = state.apex ? true : null;
+  state.list = ''; state.clip = '';
+  buildGroups(); buildLists(); applyPartState();
+  await play(); saveState();
 };
 monClipSel.onchange = async () => { state.clip = monClipSel.value; await play(); saveState(); };
 // placeParts on the way in: the monster may have been posed or resized since it mounted, and
@@ -4098,7 +4221,7 @@ window.__view.sweep = async function(run, only){
   const report = [];
   for (const id of ids){
     errors.length = 0;
-    state.id = id; state.groups = null; state.parts = {}; state.effects = null; state.list = ''; state.clip = '';
+    state.id = id; state.groups = null; state.parts = {}; state.effects = null; state.apex = false; state.list = ''; state.clip = '';
     buildMonsterList(); buildLists();
     await remount();
     const r = await window.__view.shot(run || 'sweep', id, 0);

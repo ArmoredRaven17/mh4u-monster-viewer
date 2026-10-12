@@ -1,5 +1,5 @@
 {
- "_about": "MH4U .mrl v0x20 read through LtShaderPackage.lfx (MFX v52) by mrl.py (the 4U Armor Viewer's): t.albedo is the tAlbedoMap binding (1-based into tex), s the blend-state record (BSSolid/BSBlendAlpha/BSAddAlpha/BSRevSubAlpha). Normal, LUT and extend maps are not drawn.",
+ "_about": "MH4U .mrl v0x20 read through LtShaderPackage.lfx (MFX v52) by mrl.py (the 4U Armor Viewer's): t.albedo is the tAlbedoMap binding (1-based into tex), s the blend-state record (BSSolid/BSBlendAlpha/BSAddAlpha/BSRevSubAlpha). Normal, LUT and extend maps are not drawn. f: the transparency feature, AlphaConstant (the map alpha) on every BSBlendAlpha material: 4U MRLs select no features, so the blend state decides.",
  "state": [
   {
    "blend": "opaque"
@@ -388,7 +388,8 @@
      "t": {
       "albedo": 1
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -423,7 +424,8 @@
      "t": {
       "albedo": 1
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -440,7 +442,8 @@
      "t": {
       "albedo": 1
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfB_N__E_m00_body": {
      "t": {
@@ -481,7 +484,8 @@
      "t": {
       "albedo": 1
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBA0__m01_light": {
      "t": {
@@ -673,7 +677,8 @@
      "t": {
       "albedo": 6
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -856,7 +861,8 @@
       "albedo": 1
      },
      "s": 1,
-     "extendMap": true
+     "extendMap": true,
+     "f": 0
     },
     "XfBA__E1__m00_hair": {
      "t": {
@@ -942,7 +948,8 @@
      "t": {
       "albedo": 7
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -1026,7 +1033,8 @@
      "t": {
       "albedo": 6
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -1140,7 +1148,8 @@
       "albedo": 1
      },
      "s": 1,
-     "extendMap": true
+     "extendMap": true,
+     "f": 0
     },
     "XfB__m01_eye": {
      "t": {
@@ -1338,7 +1347,8 @@
       "albedo": 6
      },
      "s": 1,
-     "extendMap": true
+     "extendMap": true,
+     "f": 0
     },
     "XfBAN__EW_0__m50_wing1": {
      "t": {
@@ -1628,7 +1638,8 @@
      "t": {
       "albedo": 1
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfB__m00_eye": {
      "t": {
@@ -1663,7 +1674,8 @@
      "t": {
       "albedo": 1
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfB_N__E_m01_body": {
      "t": {
@@ -1717,7 +1729,8 @@
      "t": {
       "albedo": 6
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBAN__E0__m50_body_alpha": {
      "t": {
@@ -1764,7 +1777,8 @@
      "t": {
       "albedo": 5
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBAN__E0__m50_body_alpha": {
      "t": {
@@ -2101,13 +2115,15 @@
      "t": {
       "albedo": 6
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBA_IW_1__m00": {
      "t": {
       "albedo": 8
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfB__m00_eye": {
      "t": {
@@ -2255,7 +2271,8 @@
      "t": {
       "albedo": 9
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfB_N__E0__m00_pop2_01": {
      "t": {
@@ -2442,7 +2459,8 @@
      "t": {
       "albedo": 9
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -3060,7 +3078,8 @@
      "t": {
       "albedo": 8
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBAN__E0__m51_hair": {
      "t": {
@@ -3442,7 +3461,8 @@
      "t": {
       "albedo": 7
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -3520,7 +3540,8 @@
      "t": {
       "albedo": 7
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -3545,7 +3566,8 @@
       "albedo": 1
      },
      "s": 1,
-     "extendMap": true
+     "extendMap": true,
+     "f": 0
     },
     "XfB__m02_add": {
      "t": {
@@ -3978,13 +4000,15 @@
      "t": {
       "albedo": 9
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBA1__m02_angry": {
      "t": {
       "albedo": 9
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -4040,13 +4064,15 @@
      "t": {
       "albedo": 9
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBA1__m02_angry": {
      "t": {
       "albedo": 9
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     }
    }
   },
@@ -4143,7 +4169,8 @@
      "t": {
       "albedo": 4
      },
-     "s": 1
+     "s": 1,
+     "f": 0
     },
     "XfBA_E1__m50_fin": {
      "t": {
@@ -4634,5 +4661,10 @@
   "models/monsters/em116_tail.glb": "em/116_tail",
   "models/monsters/em117.glb": "em/117",
   "models/monsters/em118.glb": "em/118"
- }
+ },
+ "feat": [
+  {
+   "transp": "AlphaConstant"
+  }
+ ]
 }

@@ -34,6 +34,7 @@ import mrl
 import reduce_keys
 import species as species_mod
 import parts4u
+import gu_parts
 from glbtools import (glb_read, glb_write, merge_skins, flip_v, compact, joints_of, bone_nodes, mod_info,
                       prim_rows, strip_to_animation, clip_list, MASK_DRAWN)
 import mh4u        # the 4U Armor Viewer's reader: lmd_messages (LMD text)
@@ -44,6 +45,16 @@ BLEND = {'BSSolid': 'opaque', 'BSBlendAlpha': 'blend', 'BSAddAlpha': 'add', 'BSR
 # revsub (reverse-subtract, Khezu's blood, a Fatalis face overlay) is new over 3U; render/material.js
 # draws it as the MHGU viewer does
 STATE = ['opaque', 'blend', 'add', 'revsub']
+# AN ALPHA-BLENDED MATERIAL BLENDS BY ITS TEXTURE'S ALPHA. The page's material code (GU's) takes a texture's
+# alpha into a blend only when the record names a transparency feature, which GU reads from its MRLs. 4U's
+# MRLs select no features (their records are blend / depth / raster states, the CB class and texture slots
+# only -- mrl_features scratch scan, 2026-10-09), so the BSBlendAlpha state is the whole answer: the 3DS
+# blends by the fragment alpha, the map's. Without this every blend layer drew its transparent texels solid
+# -- Najarala's fin overlay as black over the scales (Raven, 2026-10-09: "They have black portions on their
+# texture"). 'AlphaConstant' is the feature that is the map's alpha alone (no fTransparency constant, which
+# is not read here); no alpha test.
+FEAT = [{'transp': 'AlphaConstant'}]
+FEAT_TEX_ALPHA = 0
 SNAKE = True
 REUSE_POSES = False
 REBUILD_TEX = False
@@ -168,6 +179,9 @@ def ship_model(folder, stem, docs, tex_pool, mats_db, shipped, notes):
             notes.append('%s: material %s has blend state %s' % (stem, name, r['blend']))
         else:
             rec_m['s'] = STATE.index(b)
+        if b == 'blend':
+            rec_m['f'] = FEAT_TEX_ALPHA
+        mats_db.setdefault('feat', FEAT)
         if r['slots'].get('tExtendMap'):
             rec_m['extendMap'] = True      # a second albedo map the basic viewer does not draw
         mats[name] = rec_m
@@ -351,6 +365,18 @@ PART_UI = {
                           'options': [[0, 'Male (small horns)'], [1, 'Female (small horns)']]}},
     'em073': {'b795_1': {'value': 1}, 'b795_4': {'value': 1}, 'b795_8': {'value': 1}},
     'em068': {'b795_1': {'value': 1}},
+    # Rajang's cond 7 bits are its fur and tail (by its own meshes: m00_hair the normal fur, m02_hair_a and
+    # m01_hairline the enraged gold): 1 body fur, 2 gold fur; 4 / 16 the intact tail in normal / gold fur
+    # with the tail end 101, 8 / 32 the broken tail in normal / gold fur with the stump 8; 64 swaps parts
+    # 12 / 13 (not identified). Rajang has no tail piece: its tail breaks through these bits. All bits off
+    # drew it with neither fur nor tail. Rajang (and Apex Rajang, its state) spawns calm and whole: 1 + 4.
+    'em019': {'b795_1': {'value': 1}, 'b795_4': {'value': 1}},
+    # Furious Rajang: "always enraged, has a broken tail from the start of the quest" (Raven, 2026-10-09):
+    # gold fur 2, broken tail in gold fur 32.
+    'em045': {'b795_2': {'value': 1}, 'b795_32': {'value': 1}},
+    # Savage Deviljho: cond 7 bit 1 draws part 12, the neck glow (XfBA_IW_1__m00) -- his second level of
+    # rage in GU's review (part-review.json em043_05), off at spawn.
+    'em043': {'b795_1': {'label': 'Neck Glow, second rage'}},
 }
 
 # Monsters the MHGU viewer also has, by name: they hide their effect layers by default as GU does (Raven,
@@ -361,12 +387,82 @@ GU_ALIAS = {'White Fatalis': 'Old Fatalis', 'G Rank Crimson Fatalis': 'Crimson F
 _gu_names = None
 
 
+def label_apex_lists(base):
+    """the Apex lists as the base's list dropdown shows them: id = the file stem (unique, stable), 'List N'
+    for a list the base plays too, 'Apex list N' for one only the Apex has"""
+    own = {l['file'] for l in base['lists']}
+    for l in base['apex']['lists']:
+        n = l['stem'].rsplit('_', 1)[1]
+        l['id'] = l['stem']
+        l['label'] = ('List ' if l['file'] in own else 'Apex list ') + n
+
+
+def fold_apex(monsters, notes):
+    """AN APEX IS A STATE OF ITS BASE, NOT A MONSTER OF ITS OWN (Raven, 2026-10-09: "we don't need to list
+    Apex <monster> we can simply apply the Apex state to a model and effects"). An Apex archive packs its
+    base's body model, materials, textures and parts rows byte for byte; what it adds is the Frenzy state
+    (cond 10, the Virus layer and the angry eyes -- set by class code, not data), particle effects, stats,
+    and on two of them a motion list (Apex Rajang's list 4, Apex Diablos' list 4; Apex Zinogre's three
+    lists are filed under its own name but are Zinogre's, byte for byte). So each Apex entry becomes `apex` on the base entry -- {id, name, lists:
+    every list the Apex's archive packs} -- and leaves the monster list; the page's Apex switch swaps the
+    lists in (Raven's choice) and turns the Frenzy state on. Furious Rajang is not an Apex and stays."""
+    by_id = {e['id']: e for e in monsters}
+    out = []
+    for e in monsters:
+        if not (e.get('name') or '').startswith('Apex '):
+            out.append(e)
+            continue
+        base = by_id.get(e['sharesModelOf'] or '')
+        if not base or base.get('apex'):
+            notes.append('%s: no base entry to fold into -- kept' % e['id'])
+            out.append(e)
+            continue
+        base['apex'] = {'id': e['id'], 'name': e['name'], 'lists': e['lists']}
+    for e in out:
+        if e.get('apex'):
+            label_apex_lists(e)
+    folded = [e['apex']['id'] for e in out if e.get('apex')]
+    notes.append('fold_apex: %d Apex entries folded into their base (%s)' % (len(folded), ', '.join(folded)))
+    return out
+
+
+# ...EXCEPT WHERE GU ITSELF DRAWS THEM AT SPAWN (Raven, 2026-10-09: "Savage and Raging are both in GU, so we
+# may be able to use what the GU agent learned"; both "look incorrect currently"). Their identity IS an
+# additive layer, and GU keeps it lit:
+#   Savage Deviljho   m02_body_k, the body glow (parts 3 / 6 / 9): "Savage is always in the enraged state";
+#                     GU's ROM_SPAWN_CLIP pins its material clip to Angry_Start for em043_05 alone, so it
+#                     never fades (GU part-review.json em043_05). The neck glow, part 12 (cond 7 bit 1), is
+#                     his second rage and stays off at spawn, as in GU.
+#   Raging Brachydios the four nenkin slime layers (arms, body, tail) and m05_add: GU opens it in its Yellow
+#                     Slime state (part-review.json em063_05). Red Slime is a material colour this build
+#                     does not export.
+# THE REST, FROM GU'S OWN SPAWN STATE (Raven, 2026-10-09: "Go through them and check GU's records"). For every
+# 4U monster GU also has, each effect material GU's same model carries was checked two ways: GU's live viewer
+# with the monster mounted (is the mesh shown -- its part and rage sets), and GU's materials.json clips by
+# GU's own policy (ROM_SPAWN_CLIP pin, else the auto clip, else the authored fConstantColor alpha x
+# fTransparency). Drawn at spawn in GU -- shown AND lit -- and so on here:
+#   Gypceros (GU em009_00 XfBA0__m01_light), Seltas Queen (em069_00 m03_add), Gore Magala and Chaotic Gore
+#   Magala (em071_00 / em071_05 m01_kasan), Brachydios (em063_00 nenkin arms + body), Chameleos (em025_00
+#   m01_light).
+# Off in GU at spawn, so left off: Tigrex's m01_angry, Kecha Wacha, Seltas, Akantor, Gravios, Deviljho, and
+# Teostra (shown, but authored fTransparency 0). Nerscylla's layer is held off by 4U's own rows. Khezu's blood
+# and White Fatalis' face_sub ARE drawn in GU, but through a second-map modulation this build does not have;
+# drawn raw they read black (White Fatalis' blobs), so they stay off. Raging's m05_add (part 9) is hidden
+# in GU but drawn here with the rest of its layers. The Frenzy Virus layers have no GU record (GU has no
+# Frenzy) and are held off by cond 10.
+EFFECTS_AT_SPAWN = {'em043', 'em098', 'em009', 'em026', 'em028', 'em097', 'em044', 'em103'}
+
+
 def attach_gu(entry):
     global _gu_names
     if _gu_names is None:
         _gu_names = {e.get('name') for e in json.load(open(GU_MONSTERS, encoding='utf-8'))['monsters']}
     base = entry['name'].split(' (')[0]
     entry['inGU'] = GU_ALIAS.get(base, base) in _gu_names
+    if entry['em'] in EFFECTS_AT_SPAWN:
+        entry['effectsDefault'] = True
+    else:
+        entry.pop('effectsDefault', None)
 
 
 def attach_parts(entry, notes):
@@ -402,7 +498,14 @@ def attach_parts(entry, notes):
     else:
         entry['partTable'], entry['partsFrom'] = None, None
         notes.append('%s: no emd parts rows' % entry['em'])
-    entry['partUi'] = PART_UI.get(entry['partsFrom']) if entry['partsFrom'] else None
+    manual = PART_UI.get(entry['partsFrom']) if entry['partsFrom'] else None
+    # GU's handling of parts where the two models match (gu_parts.py); the hand-kept entries win
+    ui = {}
+    if entry['partTable']:
+        ui, _ = gu_parts.gu_part_ui(entry, os.path.join(REPO, 'docs'), manual)
+    for k, v in (manual or {}).items():
+        ui[k] = dict(ui.get(k, {}), **v)
+    entry['partUi'] = ui or None
     bits = {r[4] & 0xffff for r in entry['partTable'] or [] if r[2] == 1}
     for piece in entry.get('parts', []):
         piece['group'] = None
@@ -445,6 +548,12 @@ ABOUT_EYES = ('the body parts drawn only while the eyes are closed -- the parts 
               '(eyes closed) with mode 1. The viewer hides them, so every monster\'s eyes are open; the rest '
               'of the table is not applied yet. Monsters with no eyelids (Khezu, Gore Magala, the Seltas, '
               'Nerscylla, Zamtrios) have none.')
+ABOUT_APEX = ('an Apex is a state of its base monster, not an entry: {id, name, lists}. Its archive packs the '
+              'base\'s model, materials, textures and parts rows byte for byte; the page\'s Apex switch plays '
+              '`lists` (every list the Apex archive packs: the base\'s, plus Apex Rajang\'s and Apex Diablos\' '
+              'list 4; Apex Zinogre\'s three are Zinogre\'s, byte for byte, under its own name) and turns on cond 10, the Frenzy state (the Virus layer and '
+              'angry eyes), with the effect layers. That cond 10 is the Apex look is inferred: no Apex data sets '
+              'it. The Apex particle effects (efl) are not drawn.')
 ABOUT_RETARGET = ('a list whose `retargeted` is set plays from a copy of `source` with that many bone nodes '
                   'renamed by global bone id to the monster\'s own model: the monster borrows the list from a '
                   'skeleton with the same bones in another order, and the viewer binds tracks by node name.')
@@ -471,6 +580,11 @@ def main():
             attach_eyes(e, notes)
             attach_parts(e, notes)
             attach_gu(e)
+        index['monsters'] = fold_apex(index['monsters'], notes)
+        for e in index['monsters']:
+            if e.get('apex'):
+                label_apex_lists(e)
+        index['_about']['apex'] = ABOUT_APEX
         index['_about']['retargeted'] = ABOUT_RETARGET
         index['_about']['eyesClosedParts'] = ABOUT_EYES
         index['_about']['partTable'] = ABOUT_PARTS
@@ -504,6 +618,7 @@ def main():
                 sum(len(l['clips']) for l in e['lists']), len(e['hideIdx'])), flush=True)
     index = {'monsters': monsters}
     retarget_lists(index, docs, notes)
+    monsters = fold_apex(monsters, notes)
     count = collections.Counter(m['name'] for m in monsters)
     for m in monsters:
         if count[m['name']] > 1:
@@ -526,6 +641,7 @@ def main():
         'partTable': ABOUT_PARTS,
         'boneNodes': 'every bone node of the model as [three.js name, global bone id, is a _s leaf].',
         'retargeted': ABOUT_RETARGET,
+        'apex': ABOUT_APEX,
         'eyesClosedParts': ABOUT_EYES,
         'excluded': [n for n in notes if 'not listed' in n],
     }
