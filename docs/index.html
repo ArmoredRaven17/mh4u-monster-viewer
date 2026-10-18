@@ -589,7 +589,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
               <option value="shot">Shot</option><option value="fire">Fire</option>
               <option value="water">Water</option><option value="ice">Ice</option>
               <option value="thunder">Thunder</option><option value="dragon">Dragon</option>
-              <option value="stun">Stun</option><option value="exhaust">Exhaust</option>
+              <option value="stun">Stun</option><option value="col9">Column 9</option>
             </select>
           </div>
           <!-- A ZONE'S CAPSULES, picked here as well as by a row name in the chart. Raven, 2026-09-17: "Add a drop down
@@ -608,11 +608,11 @@ input[type=range]{width:100%;accent-color:var(--accent)}
             <select id="monZoneCol"></select>
           </div>
           <div class="field" id="monHeatTableRow" hidden>
-            <label for="monHeatTable">Damage Table</label>
+            <label for="monHeatTable">Hit Zone State</label>
             <select id="monHeatTable"></select>
           </div>
           <label class="chk" id="monZoneShowRow"><input type="checkbox" id="monZoneShow" checked>Show the Chart over the Render</label>
-          <!-- with no hit-zone data (MH4U's are not decoded yet) this note is all the panel shows; see applyHeat() -->
+          <!-- with no hit-zone data for a monster this note is all the panel shows; see applyHeat() -->
           <p class="hint" id="monZoneNote" hidden></p>
         </div>
       </section>
@@ -741,8 +741,8 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <div id="zoneTabRow"><select id="zoneTabSel" aria-label="Hit zone table">
           <option value="raw">Raw</option>
           <option value="elem">Elemental</option>
-          <option value="status">Stun/Exhaust</option>
-          <option value="extracts">Extracts</option>
+          <option value="status">Stun / Column 9</option>
+          <option value="extracts">Parts</option>
         </select></div>
         <div id="monZoneWrap"><table id="monRawChart"    class="zchart" data-pane="raw"></table>
           <table id="monElemChart"   class="zchart" data-pane="elem"></table>
@@ -3149,15 +3149,26 @@ function applyUndef(){
 // state.heat, the dropdown, the chart's selected column, zoneShow -- is left as it is, so reopening the
 // panel brings the same map and chart back.
 function hitZonesOpen(){ return document.getElementById('hitZonesPanel').dataset.open === 'true'; }
-// The damage table on screen: one of the file's blocks, "Table 0 / Table 1", picked by the Damage Table dropdown.
+// The damage table on screen, picked by the Hit Zone State dropdown. 4U: a table per HIT-ZONE STATE
+// (scripts/build_hitzones.py) -- table 0 the default rows, each further one a state the monster's own code switches
+// slots to, named by `tableNames`, with the condition as the code reads it (and its address) in `tableNotes`.
 function zoneTable(rec){
   const ti = Math.min(rec.tables.length - 1, Math.max(0, state.heatTable | 0));
-  return { rows: rec.tables[ti], names: rec.tables.map((_, i) => 'Table ' + i), index: ti,
-           label: rec.tables.length > 1 ? 'Table ' + ti : '' };
+  const names = rec.tables.map((_, i) => (rec.tableNames && rec.tableNames[i]) || 'Table ' + i);
+  return { rows: rec.tables[ti], names, notes: rec.tableNotes || [], index: ti,
+           label: rec.tables.length > 1 && ti > 0 ? names[ti] : '' };
 }
+// THE RECORD ON SCREEN: an Apex's own while the Apex switch is on (an Apex's tune data is its own), else the
+// monster's. Dalamadur's two units are one record, filed under both ids.
+function zoneRecId(e){
+  const hz = HITZONES.monsters || {};
+  return e ? (state.apex && e.apex && hz[e.apex.id] ? e.apex.id : e.id) : null;
+}
+function zoneRec(e){ const id = zoneRecId(e); return (id && (HITZONES.monsters || {})[id]) || null; }
 async function applyHeat(){
   const e = entry();
-  const rec = e && HITZONES.monsters && HITZONES.monsters[e.id];
+  const rec = zoneRec(e);
+  if (state.heat === 'exhaust') state.heat = '';     // a pick saved before 4U's tenth column was relabelled
   const note = document.getElementById('monZoneNote');
   document.getElementById('monHeatRow').hidden = !rec;
   // THE DROPDOWN LISTS TABLES, SO IT GOES WHEN THERE IS ONLY ONE. Set here as well as below so the previous
@@ -3180,10 +3191,10 @@ async function applyHeat(){
     return;
   }
   note.hidden = true;
-  if (!zoneCache || zoneCache.id !== e.id){
+  if (!zoneCache || zoneCache.bin !== rec.bin){
     const res = await fetch(rec.bin);
     if (!res.ok) throw new Error('hit zones missing: ' + rec.bin + ' (' + res.status + ')');
-    zoneCache = { id: e.id, zones: parseZones(await res.arrayBuffer(), rec.prims) };
+    zoneCache = { id: e.id, bin: rec.bin, zones: parseZones(await res.arrayBuffer(), rec.prims) };
   }
   const zt = zoneTable(rec);
   const tsel = document.getElementById('monHeatTable');
@@ -3194,6 +3205,7 @@ async function applyHeat(){
     zt.names.forEach((n, i) => {
       const o = document.createElement('option');
       o.value = String(i); o.textContent = n;
+      if (zt.notes[i]) o.title = zt.notes[i];
       tsel.appendChild(o);
     });
     tsel.dataset.names = names;
@@ -3221,10 +3233,12 @@ async function applyHeat(){
 // do not fit a 300px sidebar, so #monZoneWrap scrolls sideways rather than the page.
 // The ten damage columns, split into the three groups a reader actually compares within. Each group
 // is its own pane, built by the same code off its own slice of the types.
+// 4U: the tenth byte is read by the hit code (0xbec648) into a second status buildup, not yet tied to a name
+const TYPE_LABEL = { col9: 'Col. 9' };
 const ZONE_GROUPS = [
   { pane: 'raw',    id: 'monRawChart',    types: ['cut', 'impact', 'shot'] },
   { pane: 'elem',   id: 'monElemChart',   types: ['fire', 'water', 'ice', 'thunder', 'dragon'] },
-  { pane: 'status', id: 'monStatusChart', types: ['stun', 'exhaust'] },
+  { pane: 'status', id: 'monStatusChart', types: ['stun', 'col9'] },
 ];
 // Parts down, the group's types across, on the same ramp the model uses. A column header both
 // selects the type and paints it, so the chart and the heat map stay one control.
@@ -3266,8 +3280,9 @@ function buildTypeChart(el, types, rec, table){
   head.appendChild(document.createElement('th'));   // corner, over the part names
   for (const t of types){
     const th = document.createElement('th');
-    th.textContent = t.charAt(0).toUpperCase() + t.slice(1);
-    th.title = 'Paint ' + t + ' onto the model';
+    th.textContent = TYPE_LABEL[t] || t.charAt(0).toUpperCase() + t.slice(1);
+    th.title = 'Paint ' + (TYPE_LABEL[t] || t) + ' onto the model'
+      + (t === 'col9' ? '. The game’s hit code reads this byte into a second status buildup beside stun; its name is not established yet.' : '');
     if (t === state.heat) th.className = 'sel';
     th.onclick = () => {
       state.heat = (state.heat === t) ? '' : t;
@@ -3336,7 +3351,7 @@ function pickZone(kind, index){
 }
 function paintZonePick(){
   const e = entry();
-  const rec = e && HITZONES.monsters && HITZONES.monsters[e.id];
+  const rec = zoneRec(e);
   const pick = zonePick && e && zonePick.id === e.id ? zonePick : null;
   for (const tr of document.querySelectorAll('#monZoneWrap tbody tr'))
     tr.classList.toggle('zpick', !!pick && tr.dataset.zkind === pick.kind && +tr.dataset.zindex === pick.index);
@@ -3498,11 +3513,13 @@ function buildPartsChart(rec){
   const live = parts.map((p, i) => [i, p]).filter(([, p]) => p && p.stagger);
   if (!live.length) return;      // left empty; paintZoneTabs disables the tab
   const head = chart.createTHead().insertRow();
-  for (const h of ['Part', 'Stagger', 'Break']){
+  const sever = live.some(([, p]) => p.sever);
+  for (const h of ['Part', 'Stagger', 'Break'].concat(sever ? ['Sever'] : [])){
     const th = document.createElement('th');
     th.textContent = h;
-    if (h === 'Stagger') th.title = 'Damage that staggers this part';
-    else if (h === 'Break') th.title = 'Damage that breaks it, where it can be broken';
+    if (h === 'Stagger') th.title = 'Damage that staggers this part (each time it runs out is counted)';
+    else if (h === 'Break') th.title = 'When it breaks: the stagger count the break list fires at';
+    else if (h === 'Sever') th.title = 'Damage that severs it, where it can be severed';
     head.appendChild(th);
   }
   const body = chart.createTBody();
@@ -3512,6 +3529,7 @@ function buildPartsChart(rec){
     tr.insertCell().textContent = p.stagger || '—';
     // null is the game's "cannot be broken at all", which is not the same as 0
     tr.insertCell().textContent = (p.break === null || p.break === undefined) ? '—' : p.break;
+    if (sever) tr.insertCell().textContent = p.sever || '—';
   }
 }
 // The colour for a gap-detection silhouette: the complement of whatever sits behind the model, so
@@ -3806,6 +3824,7 @@ monTypeSel.onchange = () => {
 };
 monSel.onchange = async () => {
   state.id = monSel.value; state.groups = null; state.parts = {}; state.effects = null; state.apex = false; state.list = ''; state.clip = '';
+  state.heatTable = 0;             // a hit-zone state belongs to its monster
   buildMonsterList();              // Species Type follows a monster picked from a search
   buildLists();
   await remount();
@@ -3827,7 +3846,9 @@ monApex.onchange = async () => {
   state.parts.c10 = state.apex ? 1 : 0;
   state.effects = state.apex ? true : null;
   state.list = ''; state.clip = '';
+  state.heatTable = 0;             // the Apex has its own hit-zone record and states
   buildGroups(); buildLists(); applyPartState();
+  applyHeat().catch(noteError);
   await play(); saveState();
 };
 monClipSel.onchange = async () => { state.clip = monClipSel.value; await play(); saveState(); };
@@ -4184,7 +4205,7 @@ window.__view.zones = (kind, index) => {
 // The damage table on screen, read back (zoneTable): the table, and per listed slot its name and values.
 // Reads only; picks nothing.
 window.__view.zoneTable = () => {
-  const e = entry(), rec = e && HITZONES.monsters && HITZONES.monsters[e.id];
+  const e = entry(), rec = zoneRec(e);
   if (!rec) return { id: e && e.id, table: null };
   const zt = zoneTable(rec), named = zoneNames(rec);
   return { id: e.id, names: zt.names, index: zt.index, label: zt.label,

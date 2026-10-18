@@ -5,8 +5,9 @@ watch its own animations, with the game's own models and textures.
 
 **Basic version**, live at https://armoredraven17.github.io/mh4u-monster-viewer/. Forked from the MH3U Monster Viewer (itself the MHGU Monster
 Viewer cut down) as the base for a full app like the MHGU one: monster rendering and animation,
-the MHGU viewers' Lighting, Camera and Effects panels, and the game's own parts table. Sizes and
-hit zones are not decoded yet.
+the MHGU viewers' Lighting, Camera and Effects panels, the game's own parts table, and hit zones
+read from the game's own code (heat map, hit capsules and the states that change them). Sizes are not
+decoded yet.
 
 ## What it does
 

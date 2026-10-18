@@ -15,6 +15,7 @@ No build step for the app, no framework. `docs/index.html` holds markup, styles 
 
     python scripts/convert_monsters.py   # romfs archives -> C:\MH4U-Extract\conv\monster\emNNN
     python scripts/build_viewer.py       # conv -> docs/
+    python scripts/build_hitzones.py     # em_data.arc + docs/ models -> docs/hitzones.json, docs/hitzones/*.bin
 
 Both script headers are the long reference. Worth knowing:
 
@@ -60,6 +61,15 @@ Both script headers are the long reference. Worth knowing:
 - **Borrowed lists are retargeted** (`retarget_lists`): the viewer binds tracks by node name
   "<index>:<gid>", and a borrower often has the same gids in another order. Without the renamed copy
   those bones never move (Crimson Fatalis' front legs and neck, Rathalos on Rathian's lists).
+
+- **Hit zones are read from 4U's code, never from MHGU** (Raven's rule from the 3U viewer: "No basing Hit
+  Zones on GU"). `scripts/hitzones4u.py` is the reader: zone rows, capsules, part records and every state
+  change (`STATES`, each with its code address); its header is the reference, and the decode trail is
+  `C:\MH4U-Extract\notes\hitzones.md`. GU is used only for what to build: `build_hitzones.py` writes GU's
+  hitzones.json contract and bakes with GU's viewer rule, so the GU Hit Zones panel reads it. 4U adds a table
+  per state (`tableNames` / `tableNotes`, the "Hit Zone State" dropdown), Apex records under the Apex id
+  (`zoneRec`), and Dalamadur's two units (em024 + em083, em110 + em111) merged into one record, tail half
+  at slots 8-15. Column 9 is `col9`, unnamed: don't call it Exhaust until the code says so.
 
 `scripts/mrl.py` is a copy of the MH4U Armor Viewer's; `build_viewer.py` imports that repo's
 `scripts/mh4u.py` for LMD text.
