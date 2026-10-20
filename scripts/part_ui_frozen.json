@@ -1,0 +1,2435 @@
+{
+ "_about": "The Parts panel controls as they shipped at b35a2af (GU names via gu_parts.py + PART_UI), frozen 2026-10-20 by Raven's rule \"Leave the part names and hit zones names alone since I will need to manually label them\": build_viewer.py starts from these instead of re-reading GU's part-review.json, so no name changes unless edited here by hand.",
+ "partUi": {
+  "em001": {
+   "break1": {
+    "label": "Left Wing",
+    "gu": "em001_00 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Wing",
+    "gu": "em001_00 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break6": {
+    "label": "Head",
+    "gu": "em001_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Back",
+    "gu": "em001_00 rows[\"10,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em001_00 rows[\"1,9\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em001_00 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em002": {
+   "break1": {
+    "label": "Left Wing",
+    "gu": "em002_00 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Wing",
+    "gu": "em002_00 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break6": {
+    "label": "Head",
+    "gu": "em002_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Back",
+    "gu": "em002_00 rows[\"10,11\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em002_00 rows[\"1,9\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em005": {
+   "break1": {
+    "label": "Left Wing",
+    "gu": "em001_02 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Wing",
+    "gu": "em001_02 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break6": {
+    "label": "Head",
+    "gu": "em001_02 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Back",
+    "gu": "em001_02 rows[\"10,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em001_02 rows[\"1,9\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em001_02 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em006": {
+   "break1": {
+    "label": "Left Wing",
+    "gu": "em002_02 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Wing",
+    "gu": "em002_02 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break6": {
+    "label": "Head",
+    "gu": "em002_02 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Back",
+    "gu": "em002_02 rows[\"10,11\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em002_02 rows[\"1,9\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em007": {
+   "break6": {
+    "label": "Ears",
+    "gu": "em008_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em009": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em009_00 rows[\"1,6,7\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em011": {
+   "break0": {
+    "label": "Head",
+    "gu": "em032_00 rows[\"5,6\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em032_00 rows[\"15,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em014": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em016_00 rows[\"1,3\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Head",
+    "gu": "em016_00 rows[\"2,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      3,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em016": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em014_00 rows[\"1,3\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Head",
+    "gu": "em014_00 rows[\"2,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      3,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em017": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em021_00 rows[\"1,8\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Head",
+    "gu": "em021_00 rows[\"3,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Left Claw",
+    "gu": "em021_00 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Right Claw",
+    "gu": "em021_00 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "merge:b795_2+b795_4+b795_8+b795_16+b795_32+b795_64+b795_128+b795_256": {
+    "label": "Items",
+    "merge": [
+     "b795_2",
+     "b795_4",
+     "b795_8",
+     "b795_16",
+     "b795_32",
+     "b795_64",
+     "b795_128",
+     "b795_256"
+    ],
+    "options": [
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 0,
+       "b795_8": 0,
+       "b795_16": 0,
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_128": 0,
+       "b795_256": 0
+      },
+      "Nothing"
+     ],
+     [
+      {
+       "b795_2": 1,
+       "b795_4": 0,
+       "b795_8": 0,
+       "b795_16": 0,
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_128": 0,
+       "b795_256": 0
+      },
+      "Bone"
+     ],
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 1,
+       "b795_8": 0,
+       "b795_16": 0,
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_128": 0,
+       "b795_256": 0
+      },
+      "Rock"
+     ],
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 0,
+       "b795_8": 1,
+       "b795_16": 0,
+       "b795_32": 1,
+       "b795_64": 0,
+       "b795_128": 0,
+       "b795_256": 0
+      },
+      "Nitroshroom"
+     ],
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 0,
+       "b795_8": 1,
+       "b795_16": 1,
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_128": 0,
+       "b795_256": 0
+      },
+      "Mopeshroom"
+     ],
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 0,
+       "b795_8": 1,
+       "b795_16": 0,
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_128": 1,
+       "b795_256": 0
+      },
+      "Parashroom"
+     ],
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 0,
+       "b795_8": 1,
+       "b795_16": 0,
+       "b795_32": 0,
+       "b795_64": 1,
+       "b795_128": 0,
+       "b795_256": 0
+      },
+      "Toadstool"
+     ],
+     [
+      {
+       "b795_2": 0,
+       "b795_4": 0,
+       "b795_8": 1,
+       "b795_16": 0,
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_128": 0,
+       "b795_256": 1
+      },
+      "Spotted Mushroom"
+     ]
+    ],
+    "gu": "em021_00 rows[\"10,11,101+12+14+13+15+16+17+19+18\"]",
+    "value": 0
+   }
+  },
+  "em019": {
+   "b795_1": {
+    "value": 1
+   },
+   "b795_4": {
+    "value": 1
+   }
+  },
+  "em020": {
+   "merge:eyes+b795_32+b795_64": {
+    "label": "Eyes",
+    "merge": [
+     "eyes",
+     "b795_32",
+     "b795_64"
+    ],
+    "options": [
+     [
+      {
+       "eyes": 0,
+       "b795_32": 1,
+       "b795_64": 0
+      },
+      "Open"
+     ],
+     [
+      {
+       "eyes": 0,
+       "b795_32": 0,
+       "b795_64": 1
+      },
+      "Half Open"
+     ],
+     [
+      {
+       "eyes": 1,
+       "b795_32": 0,
+       "b795_64": 0
+      },
+      "Closed"
+     ]
+    ],
+    "gu": "em065_00 rows[\"1,14,15\"]",
+    "value": 0
+   },
+   "merge:b795_1+b795_2+b795_4": {
+    "label": "Wing Flaps",
+    "merge": [
+     "b795_1",
+     "b795_2",
+     "b795_4"
+    ],
+    "options": [
+     [
+      {
+       "b795_1": 1,
+       "b795_2": 0,
+       "b795_4": 0
+      },
+      "Tucked"
+     ],
+     [
+      {
+       "b795_1": 0,
+       "b795_2": 0,
+       "b795_4": 1
+      },
+      "Partial"
+     ],
+     [
+      {
+       "b795_1": 0,
+       "b795_2": 1,
+       "b795_4": 0
+      },
+      "Full"
+     ]
+    ],
+    "gu": "em065_00 rows[\"2,3,4,102\"]",
+    "value": 0
+   },
+   "break5": {
+    "label": "Tail",
+    "gu": "em065_00 rows[\"10,11\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em021": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em066_00 rows[\"13\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em022": {
+   "merge:cut16384+cut512": {
+    "label": "Left Front Leg Ice",
+    "merge": [
+     "cut16384",
+     "cut512"
+    ],
+    "options": [
+     [
+      {
+       "cut16384": 1,
+       "cut512": 1
+      },
+      "Normal"
+     ]
+    ],
+    "gu": "em067_00 rows[\"3,28\"]",
+    "value": 0,
+    "hidden": true
+   },
+   "merge:cut8192+cut256": {
+    "label": "Right Front Leg Ice",
+    "merge": [
+     "cut8192",
+     "cut256"
+    ],
+    "options": [
+     [
+      {
+       "cut8192": 1,
+       "cut256": 1
+      },
+      "Normal"
+     ]
+    ],
+    "gu": "em067_00 rows[\"26,29\"]",
+    "value": 0,
+    "hidden": true
+   },
+   "b795_16": {
+    "label": "Body",
+    "gu": "em067_00 rows[\"4,21,22,102\"]",
+    "options": [
+     [
+      0,
+      "Normal"
+     ],
+     [
+      1,
+      "Spikey"
+     ]
+    ],
+    "hidden": true
+   }
+  },
+  "em026": {
+   "break2": {
+    "label": "Left Front Leg",
+    "gu": "em069_00 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break5": {
+    "label": "Right Rear Leg",
+    "gu": "em069_00 rows[\"11,12\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em027": {
+   "merge:cut16384+break1": {
+    "label": "Back",
+    "merge": [
+     "cut16384",
+     "break1"
+    ],
+    "options": [
+     [
+      {
+       "cut16384": 0,
+       "break1": 0
+      },
+      "Intact"
+     ],
+     [
+      {
+       "cut16384": 1,
+       "break1": 0
+      },
+      "Cracked"
+     ],
+     [
+      {
+       "cut16384": 1,
+       "break1": 3
+      },
+      "Broken"
+     ]
+    ],
+    "gu": "em070_00 rows[\"6,7+8,9\"]",
+    "value": 0
+   },
+   "f954": {
+    "label": "Enraged Effect",
+    "gu": "em070_00 rows[\"1,12\"]",
+    "optionNames": {
+     "0": "Additive Layer"
+    },
+    "hidden": true
+   },
+   "cut32768": {
+    "label": "Claws",
+    "gu": "em070_00 rows[\"10,11\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "b795_1": {
+    "label": "Web",
+    "gu": "em070_00 rows[\"13\"]",
+    "options": [
+     [
+      0,
+      "Off"
+     ],
+     [
+      1,
+      "On"
+     ]
+    ],
+    "value": 1,
+    "hidden": true
+   }
+  },
+  "em028": {
+   "break0": {
+    "label": "Head",
+    "gu": "em071_00 rows[\"2,3,13,14,15,16\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break7": {
+    "label": "Feelers",
+    "gu": "em071_00 rows[\"1,7,9,10,102,103\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Wings",
+    "gu": "em071_00 rows[\"12,104\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Wing Arms",
+    "gu": "em071_00 rows[\"6,105\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em071_00 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em029": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em072_00 rows[\"5\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Wings",
+    "gu": "em072_00 rows[\"12,104\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Wing Arms",
+    "gu": "em072_00 rows[\"6,105\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em072_00 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em030": {
+   "break0": {
+    "label": "Back",
+    "gu": "em018_00 rows[\"5,6\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break1": {
+    "label": "Left Wing",
+    "gu": "em018_00 rows[\"7,8\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Wing",
+    "gu": "em018_00 rows[\"9,10\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em031": {
+   "eyes": {
+    "label": "Eye",
+    "gu": "em024_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "b795_1": {
+    "label": "Horns",
+    "gu": "em024_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em024_00 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em032": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em027_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "b795_1": {
+    "label": "Head",
+    "gu": "em027_00 rows[\"3,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em033": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em033_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em034": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em011_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Horn",
+    "gu": "em011_00 rows[\"2,102,103\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em036": {
+   "break6": {
+    "label": "Head",
+    "gu": "em003_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Body",
+    "gu": "em003_00 rows[\"2\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      3,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em038": {
+   "break0": {
+    "label": "Back",
+    "gu": "em004_00 rows[\"7,8\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break6": {
+    "label": "Belly",
+    "gu": "em004_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em004_00 rows[\"6,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em004_00 rows[\"1,9\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em040": {
+   "break5": {
+    "label": "Head",
+    "gu": "em005_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break1": {
+    "label": "Left Wing",
+    "gu": "em005_00 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Wing",
+    "gu": "em005_00 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Left Leg",
+    "gu": "em005_00 rows[\"12,13\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break4": {
+    "label": "Right Leg",
+    "gu": "em005_00 rows[\"14,15\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Back",
+    "gu": "em005_00 rows[\"16,17\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break6": {
+    "label": "Belly",
+    "gu": "em005_00 rows[\"8,9+10,11\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Cracked"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em005_00 rows[\"18,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em005_00 rows[\"1,19\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em042": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em043_00 rows[\"7\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em043_00 rows[\"8,9,101\"]",
+    "optionNames": {
+     "1": "Severed"
+    }
+   }
+  },
+  "em043": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em043_05 rows[\"7\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em043_05 rows[\"8,9,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   },
+   "b795_1": {
+    "label": "Neck Glow, second rage",
+    "gu": "em043_05 rows[\"0,3,12,100\"]",
+    "optionNames": {
+     "0": "Body Glow"
+    },
+    "hidden": true
+   }
+  },
+  "em044": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em063_00 rows[\"3,19\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "merge:break0+b795_8+b795_16+b795_2+b795_4": {
+    "label": "Horn",
+    "merge": [
+     "break0",
+     "b795_8",
+     "b795_16",
+     "b795_2",
+     "b795_4"
+    ],
+    "options": [
+     [
+      {
+       "break0": 0,
+       "b795_8": 0,
+       "b795_16": 0,
+       "b795_2": 0,
+       "b795_4": 0
+      },
+      "Intact"
+     ],
+     [
+      {
+       "break0": 2,
+       "b795_8": 1,
+       "b795_16": 0,
+       "b795_2": 0,
+       "b795_4": 0
+      },
+      "Broken"
+     ],
+     [
+      {
+       "break0": 2,
+       "b795_8": 0,
+       "b795_16": 0,
+       "b795_2": 0,
+       "b795_4": 0
+      },
+      "Broken (Enraged)"
+     ]
+    ],
+    "gu": "em063_00 rows[\"1,2,9,10,11,13,14\"]",
+    "value": 0
+   },
+   "break3": {
+    "label": "Left Pounder",
+    "gu": "em063_00 rows[\"4,5,15,16\"]",
+    "options": [
+     [
+      0,
+      "Primed"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Pounder",
+    "gu": "em063_00 rows[\"6,7,17,18\"]",
+    "options": [
+     [
+      0,
+      "Primed"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em063_00 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em045": {
+   "b795_2": {
+    "value": 1
+   },
+   "b795_32": {
+    "value": 1
+   }
+  },
+  "em047": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em061_00 rows[\"1,4\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Ears",
+    "gu": "em061_00 rows[\"2,3\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em048": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em057_00 rows[\"1,26\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em057_00 rows[\"14,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Left Claw",
+    "gu": "em057_00 rows[\"19,20,24\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break4": {
+    "label": "Right Claw",
+    "gu": "em057_00 rows[\"21,22,25\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Head",
+    "gu": "em057_00 rows[\"2,3,4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Cracked"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "merge:b795_32+b795_64+b795_8+b795_16": {
+    "label": "Back",
+    "merge": [
+     "b795_32",
+     "b795_64",
+     "b795_8",
+     "b795_16"
+    ],
+    "options": [
+     [
+      {
+       "b795_32": 1,
+       "b795_64": 0,
+       "b795_8": 0,
+       "b795_16": 0
+      },
+      "Intact"
+     ],
+     [
+      {
+       "b795_32": 0,
+       "b795_64": 0,
+       "b795_8": 1,
+       "b795_16": 0
+      },
+      "Broken"
+     ]
+    ],
+    "gu": "em057_00 rows[\"7,8,10,11,12\"]",
+    "value": 0
+   }
+  },
+  "em054": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "ems041_00 rows[\"0,1,100\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em055": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "ems041_00 rows[\"0,1,100\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em057": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "ems035_00 rows[\"0,1,100\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em064": {
+   "variant": {
+    "label": "Gender",
+    "value": 0,
+    "options": [
+     [
+      0,
+      "Male (small horns)"
+     ],
+     [
+      1,
+      "Female (small horns)"
+     ]
+    ]
+   }
+  },
+  "em068": {
+   "b795_1": {
+    "value": 1
+   }
+  },
+  "em069": {
+   "b795_1": {
+    "value": 1
+   }
+  },
+  "em070": {
+   "b795_1": {
+    "value": 1
+   }
+  },
+  "em071": {
+   "b795_1": {
+    "value": 1
+   }
+  },
+  "em073": {
+   "b795_1": {
+    "value": 1
+   },
+   "b795_4": {
+    "value": 1
+   },
+   "b795_8": {
+    "value": 1
+   }
+  },
+  "em074": {
+   "b795_1": {
+    "value": 1
+   },
+   "b795_4": {
+    "value": 1
+   },
+   "b795_8": {
+    "value": 1
+   }
+  },
+  "em075": {
+   "b795_1": {
+    "value": 1
+   },
+   "b795_4": {
+    "value": 1
+   },
+   "b795_8": {
+    "value": 1
+   }
+  },
+  "em076": {
+   "b795_1": {
+    "value": 1
+   },
+   "b795_4": {
+    "value": 1
+   },
+   "b795_8": {
+    "value": 1
+   }
+  },
+  "em077": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em013_00 rows[\"1,10\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break5": {
+    "label": "Head",
+    "gu": "em013_00 rows[\"2,3,4,5,7,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Horn Cracked"
+     ],
+     [
+      2,
+      "Horn Broken"
+     ],
+     [
+      3,
+      "Face Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Chest",
+    "gu": "em013_00 rows[\"8,9\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em078": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em013_01 rows[\"1,10\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break5": {
+    "label": "Head",
+    "gu": "em013_01 rows[\"2,3,4,5,7,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Horn Cracked"
+     ],
+     [
+      2,
+      "Horn Broken"
+     ],
+     [
+      3,
+      "Face Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Chest",
+    "gu": "em013_01 rows[\"8,9\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em079": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em013_02 rows[\"1,10\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break5": {
+    "label": "Head",
+    "gu": "em013_02 rows[\"2,3,4,5,7,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Horn Cracked"
+     ],
+     [
+      2,
+      "Horn Broken"
+     ],
+     [
+      3,
+      "Face Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Chest",
+    "gu": "em013_02 rows[\"8,9\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em088": {
+   "break6": {
+    "label": "Head",
+    "gu": "em077_00 rows[\"38,39,42,43,44,110\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "b795_2": {
+    "label": "Body",
+    "gu": "em077_00 rows[\"5,6,9,10,11,14,17,102,103,106\"]",
+    "optionNames": {
+     "0": "Intact"
+    },
+    "hidden": true
+   },
+   "break3": {
+    "label": "Left Leg",
+    "gu": "em077_00 rows[\"28,111\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      3,
+      "Broken"
+     ]
+    ]
+   },
+   "break4": {
+    "label": "Right Leg",
+    "gu": "em077_00 rows[\"29,112\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      3,
+      "Broken"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em077_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  },
+  "em097": {
+   "break0": {
+    "label": "Head",
+    "gu": "em071_05 rows[\"2,3,13,14,15,16,17,106\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Wings",
+    "gu": "em071_05 rows[\"12,104\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Left Wing Arm",
+    "gu": "em071_05 rows[\"6,105\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "break7": {
+    "label": "Right Wing Arm",
+    "gu": "em071_05 rows[\"18,107\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em071_05 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em098": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em063_05 rows[\"3\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Horn",
+    "gu": "em063_05 rows[\"1,2\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break3": {
+    "label": "Left Pounder",
+    "gu": "em063_05 rows[\"4,5\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Right Pounder",
+    "gu": "em063_05 rows[\"6,7\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em063_05 rows[\"8,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em099": {
+   "break6": {
+    "label": "Horns",
+    "gu": "em007_00 rows[\"2,102+3,103\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "One Horn Broken"
+     ],
+     [
+      2,
+      "Both Horns Broken"
+     ]
+    ]
+   },
+   "break0": {
+    "label": "Back",
+    "gu": "em007_00 rows[\"6,104\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em007_00 rows[\"1,5\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em007_00 rows[\"4,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em103": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em025_00 rows[\"1,6\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "cut2": {
+    "label": "Horn",
+    "gu": "em025_00 rows[\"2,5,102\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em025_00 rows[\"3,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   },
+   "break7": {
+    "label": "Wings",
+    "gu": "em025_00 rows[\"7,8\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em107": {
+   "break2": {
+    "label": "Skull Shell",
+    "gu": "em019_00 rows[\"3,4,103,104\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Cracked"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break5": {
+    "label": "Left Claw",
+    "gu": "em019_00 rows[\"1,101\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   }
+  },
+  "em116": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em038_00 rows[\"1\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   },
+   "break2": {
+    "label": "Belly",
+    "gu": "em038_00 rows[\"4,103\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "break1": {
+    "label": "Back",
+    "gu": "em038_00 rows[\"5,104\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      2,
+      "Broken"
+     ]
+    ]
+   },
+   "cut1": {
+    "label": "Tail",
+    "gu": "em038_00 rows[\"8,107\"]",
+    "options": [
+     [
+      0,
+      "Intact"
+     ],
+     [
+      1,
+      "Severed"
+     ]
+    ]
+   }
+  },
+  "em117": {
+   "eyes": {
+    "label": "Eyes",
+    "gu": "em013_01 rows[\"1,10\"]",
+    "options": [
+     [
+      0,
+      "Open"
+     ],
+     [
+      1,
+      "Closed"
+     ]
+    ]
+   }
+  }
+ }
+}

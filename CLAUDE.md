@@ -43,15 +43,23 @@ Both script headers are the long reference. Worth knowing:
   own whole tail (part 101), so the piece only shows once cut, as the tail on the ground. 3U's
   attachPiece path is not used for 4U. Conds 10/11 are 4U-only switches in
   render/monster.js.
-- **Parts-panel names come from the MHGU viewer** where the models match (`scripts/gu_parts.py`,
-  run by build_viewer.py): a GU part-review row is used only if every part of it the 4U model has is
-  the same geometry; hand-kept `PART_UI` wins. partUi kinds the page understands: per control
+- **Part and hit-zone names are Raven's to label by hand** (2026-10-18: "Leave the part names and hit
+  zones names alone since I will need to manually label them"). Don't rename, generate, import or copy
+  any. The Parts-panel controls are FROZEN as they shipped in `scripts/part_ui_frozen.json`; the build
+  starts from that file and no longer runs `scripts/gu_parts.py` (which made them from GU's part-review
+  rows where the models match), so a change in GU cannot rename a 4U control. Hand-kept `PART_UI` and
+  `SPAWN_BITS` win. partUi kinds the page understands: per control
   {label, value, options | optionNames, hidden}, and merged rows 'merge:a+b' {label, merge, options:
   [[{key: value}, name]], value}. GU option keys are per state ('a|b'): only the first (base) counts.
 - Monsters with no rows fall back to `noTable` in `applyPartState`: pieces hidden, eyelids
   (`eyesClosedParts`) hidden.
 - Spawn defaults are 3U's (all inputs 0) except where `PART_UI` (build_viewer.py, the page's `partUi`)
   sets them from the MHGU viewer's choices: Kelbi Gender, Konchu unrolled, Bnahabra folded wings.
+  **The cond 7 appearance bits are the class's own spawn values** (`SPAWN_BITS`, each with the code
+  address: the class's spawn setup is vtable slot 39, its per-frame update slot 48). Every monster with
+  cond 7 rows was read (2026-10-20); the ones not listed there spawn with 0, and its comment lists the
+  few kept as chosen rather than read (Nerscylla's web, Furious Rajang, Savage Deviljho) and Dah'ren's
+  random back pieces.
   Colour variants borrow their base's rows (`PARTS_FROM`).
 - Effect layers (`userData.effect`: add / revsub meshes) are off by default when `inGU` (the monster is
   in the MHGU viewer, by name + `GU_ALIAS`), as GU does; 4U-only monsters draw them. `effectsDefault`

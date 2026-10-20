@@ -24,7 +24,7 @@ ships once and is marked `shared`.
 
 What is ROM-sourced and what is not is written into monsters.json's `_about`.
 """
-import argparse, collections, datetime, glob, hashlib, json, os, re, sys
+import argparse, collections, copy, datetime, glob, hashlib, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -34,7 +34,8 @@ import mrl
 import reduce_keys
 import species as species_mod
 import parts4u
-import gu_parts
+import gu_parts      # made part_ui_frozen.json; not run by the build since 2026-10-20 (see attach_parts)
+FROZEN_UI = json.load(open(os.path.join(HERE, 'part_ui_frozen.json'), encoding='utf-8'))['partUi']
 from glbtools import (glb_read, glb_write, merge_skins, flip_v, compact, joints_of, bone_nodes, mod_info,
                       prim_rows, strip_to_animation, clip_list, MASK_DRAWN)
 import mh4u        # the 4U Armor Viewer's reader: lmd_messages (LMD text)
@@ -379,6 +380,58 @@ PART_UI = {
     'em043': {'b795_1': {'label': 'Neck Glow, second rage'}},
 }
 
+# THE APPEARANCE BITS A MONSTER SPAWNS WITH (parts cond 7 = work+0x7a14), read from its class's code
+# (2026-10-20, Raven: "review each monster and ensure their default parts are enabled"). Keyed like PART_UI (by
+# the parts source, so colour variants follow their base). Every cond-7 bit of a listed monster is set from this:
+# on if listed, off if not -- values only, no control is renamed. A merged row (gu_parts.py) gets the same bits
+# written into the option it opens on. Monsters not listed spawn with 0, or keep their PART_UI choice, as read:
+#   0 at spawn, matching the page: Gypceros, Tigrex / Brute (bit 1 = enraged eyes, 0x710a94), Congalala (the item
+#     held, none at spawn, 0x729f74), Zamtrios, Gore Magala, Kushala Daora (Rusted's bit 2 only in quest 1002,
+#     0x7cd518), Teostra, Deviljho (bit 1 = enraged, 0x817580), Altaroth, Zamite (spawn variant 1 only), both
+#     Dalamadurs, Seregios (its class word +0xc8 from motion / rage flags, 0x8b5880), Gogmazios.
+#   Already the class's bits: Konchu and Bnahabra (PART_UI; spawn 0x88c11c = 0xd, 0x884eb8 = 1), Rajang (calm and
+#     whole: 1 + 4, 0x735018), Kecha Wacha and Zinogre (GU's merged rows open on the class's bits).
+#   NOT the game's, kept as chosen: Nerscylla's bit 1 (on only in some actions, 0x7a7720; GU opens it "web on"),
+#     Furious Rajang (Raven), Savage Deviljho (bit 1 = enraged; his spawn rage is not read).
+#   Dah'ren Mohran picks 4 of his 7 back pieces at random at spawn (0x82a74c): no single default, left off.
+SPAWN_BITS = {
+    # slot 48 0x786f04: one of 0x20 / 0x40 / 0x100 / 0x80 by class +0x38 (spawn 0.0, 0x77c55c -> 0x20), and 0x200
+    # unless work+0x53a is set; spawn 0x77c540 = 0x200
+    'em025': 0x20 | 0x200, 'em094': 0x20 | 0x200,
+    # spawn 0x78b898 = 1, kept by 0x796704
+    'em026': 1, 'em095': 1,
+    # spawn 0x87cac4: bic 0xb0, orr 0x40
+    'em065': 0x40,
+    # 0x710c7c: calm and outside its second state, 2 | 4
+    'em080': 2 | 4,
+    # 0x73c8b0 / 0x73c92c: no special action 1, not enraged or tired 0x20 (Kecha's merged rows already do this)
+    'em090': 1 | 0x20,
+    # 0x859250: back intact 0x20 (Zinogre's merged row already does this)
+    'em049': 0x20,
+    # 0x825df4: slime +0x94 below 10 at spawn, horn intact -> 0x10
+    'em044': 0x10,
+}
+
+
+def apply_spawn_bits(entry, ui):
+    bits = SPAWN_BITS.get(entry.get('partsFrom'))
+    if bits is None or not entry.get('partTable'):
+        return ui
+    have = {r[4] for r in entry['partTable'] if r[2] == 7}
+    merged = set()
+    for k, row in ui.items():
+        if k.startswith('merge:') and row.get('options'):
+            opt = row['options'][row.get('value') or 0][0]
+            for key in row['merge']:
+                if key.startswith('b795_'):
+                    opt[key] = 1 if bits & int(key[5:]) else 0
+                    merged.add(key)
+    for b in sorted(have):
+        key = 'b795_%d' % b
+        if key not in merged and (b & (b - 1)) == 0:
+            ui[key] = dict(ui.get(key, {}), value=1 if bits & b else 0)
+    return ui
+
 # Monsters the MHGU viewer also has, by name: they hide their effect layers by default as GU does (Raven,
 # 2026-10-08: "follow the GU Agent's advice for monsters that are in GU and 4U"). Two 4U names are GU's
 # under another: White Fatalis is GU's Old Fatalis, G Rank Crimson Fatalis its Crimson Fatalis.
@@ -499,12 +552,16 @@ def attach_parts(entry, notes):
         entry['partTable'], entry['partsFrom'] = None, None
         notes.append('%s: no emd parts rows' % entry['em'])
     manual = PART_UI.get(entry['partsFrom']) if entry['partsFrom'] else None
-    # GU's handling of parts where the two models match (gu_parts.py); the hand-kept entries win
+    # THE CONTROLS AS THEY SHIPPED (part_ui_frozen.json), not a fresh read of GU's part-review.json: Raven, 2026-10-18,
+    # "Leave the part names and hit zones names alone since I will need to manually label them". gu_parts.py made
+    # them (GU's handling where the models match) and is no longer run, so a change in GU's review cannot rename a
+    # 4U control. The hand-kept entries win as before.
     ui = {}
     if entry['partTable']:
-        ui, _ = gu_parts.gu_part_ui(entry, os.path.join(REPO, 'docs'), manual)
+        ui = copy.deepcopy(FROZEN_UI.get(entry['id']) or {})
     for k, v in (manual or {}).items():
         ui[k] = dict(ui.get(k, {}), **v)
+    ui = apply_spawn_bits(entry, ui)
     entry['partUi'] = ui or None
     bits = {r[4] & 0xffff for r in entry['partTable'] or [] if r[2] == 1}
     for piece in entry.get('parts', []):
