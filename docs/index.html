@@ -531,10 +531,6 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <div class="field"><label for="monType">Species Type</label><select id="monType"></select></div>
           <div class="field"><label for="monSel">Monster</label>
             <div class="row gap" id="monPick"><select id="monSel"></select><img id="monIcon" class="mon-icon" alt="" hidden></div></div>
-          <!-- THE APEX STATE (monsters.json `apex`): an Apex is its base monster's model in the Frenzy state with
-               its own lists, not an entry of its own (Raven, 2026-10-09: "we can simply apply the Apex state to a
-               model and effects"). Shown only on a monster that has one. -->
-          <label class="chk" id="monApexRow" hidden><input type="checkbox" id="monApex"><span id="monApexText">Apex</span></label>
         </div>
       </section>
 
@@ -543,6 +539,13 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <div class="panel-body">
           <div class="field"><label for="monList">Motion List</label><select id="monList"></select></div>
           <div class="field"><label for="monClip">Clip</label><select id="monClip"></select></div>
+          <!-- SHOT TARGET (render/effects.js SHELLS): an aimed shot's pitch is the AI's aim at its target, which the
+               viewer does not have -- it aims at a floor point this far ahead of where the shot starts. Shown when
+               the monster has an aimed shot. In the Animation panel: it is how a clip plays out, not a part or a
+               state (Raven, 2026-10-25). -->
+          <div class="field" id="monShotAimRow" hidden><label for="monShotAim">Shot Target</label>
+            <select id="monShotAim"><option value="5">5 m</option><option value="10">10 m</option>
+              <option value="15">15 m</option><option value="20">20 m</option><option value="30">30 m</option></select></div>
           <div id="anim" class="idle">
             <div class="transport">
               <input id="animScrub" type="range" min="0" max="1" step="1" value="0" title="Scrub through the frames">
@@ -567,6 +570,18 @@ input[type=range]{width:100%;accent-color:var(--accent)}
         <button class="panel-head">Parts <span class="chev">&#9662;</span></button>
         <div class="panel-body">
           <div id="monGroups"></div>
+          <!-- THE APEX STATE (monsters.json `apex`): an Apex is its base monster's model in the Frenzy state with
+               its own lists, not an entry of its own (Raven, 2026-10-09: "we can simply apply the Apex state to a
+               model and effects"). Shown only on a monster that has one. In the Parts panel with the other states
+               (Raven, 2026-10-25: "move 'Apex' check box to the Parts panel"). -->
+          <label class="chk" id="monApexRow" hidden><input type="checkbox" id="monApex"><span id="monApexText">Apex</span></label>
+          <!-- STATE, where GU keeps it (its Parts panel's monStateRow): Normal / Enraged / Exhausted as one dropdown, never
+               two at once. It drives 4U's shared enemy effects (render/effects.js sharedPass, 0x919868 READ in part):
+               Enraged, the rage puff (1020 / 1021 by the class's pick, then 1022-1025) every 30 frames; Exhausted, 1009
+               every 48. Shown on a monster whose effects hold those records. WORKING labels -- Raven names them. -->
+          <div class="field" id="monMotionFxStateRow" hidden><label for="monMotionFxState">State</label>
+            <select id="monMotionFxState"><option value="normal">Normal</option><option value="rage">Enraged</option>
+              <option value="tired">Exhausted</option></select></div>
           <!-- THE EFFECT LAYERS (render/monster.js userData.effect): additive and reverse-subtractive overlays the
                game switches on in states this viewer does not model. Off by default on every monster the MHGU
                viewer also has, as GU does (Raven, 2026-10-08: "follow the GU Agent's advice for monsters that are
@@ -717,6 +732,16 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <label class="chk" id="monTailRow" hidden><input type="checkbox" id="monTail">Show the Severed Parts</label>
           <label class="chk"><input type="checkbox" id="monGap">Gap Detection</label>
           <label class="chk" id="monProxyRow" hidden><input type="checkbox" id="monProxy"><span id="monProxyText">Draw Mask-Hidden Meshes</span></label>
+          <!-- MOTION EFFECTS (render/effects.js): what 4U's own effect code drew, recorded offline (MH4U-Extract
+               tools\fx\record_effects.py). On by default, as GU draws its effects with no switch; here, with the debug
+               switches, because the GPU half of the draw is approximated. The line under it shows only when the monster
+               has no recording. -->
+          <label class="chk" id="monMotionFxRow"><input type="checkbox" id="monMotionFx">Draw Motion Effects</label>
+          <!-- A .mef record's byte 0 is a condition bit the monster's class sets per frame (0x3918c8, not read): Rathian's
+               fire breath / fireball flashes (2000-2002) carry condition 1. On, those fire whenever their motion fires
+               them; off, only the records with no condition. GU reads its classes' enable words instead. -->
+          <label class="chk" id="monMotionFxCondRow" hidden><input type="checkbox" id="monMotionFxCond">Motion Effects: Include Class-State Records</label>
+          <div id="monMotionFxInfo" class="hint" hidden></div>
           <!-- the monster's readout (ID, Bones, Vertices ...), moved here from the Monster panel -->
           <dl id="monAbout" class="info"></dl>
         </div>
@@ -773,20 +798,20 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <ul class="app-links">
       <!-- every published MH4U app, in the hub's order (apps.js); this app's own row is the "you are here" one -->
       <li>
-        <a href="https://armoredraven17.github.io/mh4u-collection-tracker/" target="_blank" rel="noopener">Collection Tracker</a>
-        <span class="app-desc">Tracks which MH4U weapons and armor you own, and what it costs to finish them.</span>
+        <a href="https://armoredraven17.github.io/mh4u-armor-skills-explained/" target="_blank" rel="noopener">Armor Skills Explained</a>
+        <span class="app-desc">Every MH4U armor skill: the game's own description, then what it actually does, with the numbers.</span>
       </li>
       <li>
         <a href="https://armoredraven17.github.io/mh4u-weapon-trees/" target="_blank" rel="noopener">Weapon Trees</a>
         <span class="app-desc">Browse every MH4U weapon upgrade tree, with full stats on any node you click.</span>
       </li>
       <li>
-        <a href="https://armoredraven17.github.io/mh4u-hunting-log/" target="_blank" rel="noopener">Hunting Log</a>
-        <span class="app-desc">Keeps a running record of your MH4U hunts — what you were after, what you wore, who came along.</span>
+        <a href="https://armoredraven17.github.io/mh4u-collection-tracker/" target="_blank" rel="noopener">Collection Tracker</a>
+        <span class="app-desc">Tracks which MH4U weapons and armor you own, and what it costs to finish them.</span>
       </li>
       <li>
-        <a href="https://armoredraven17.github.io/mh4u-armor-skills-explained/" target="_blank" rel="noopener">Armor Skills Explained</a>
-        <span class="app-desc">Every MH4U armor skill: the game's own description, then what it actually does, with the numbers.</span>
+        <a href="https://armoredraven17.github.io/mh4u-hunting-log/" target="_blank" rel="noopener">Hunting Log</a>
+        <span class="app-desc">Keeps a running record of your MH4U hunts — what you were after, what you wore, who came along.</span>
       </li>
       <li>
         <a href="https://armoredraven17.github.io/mh4u-quest-randomizer/" target="_blank" rel="noopener">Quest Randomizer</a>
@@ -1166,6 +1191,7 @@ if (document.fonts) document.fonts.load('1em MHFU').then(() => {
 import * as THREE from 'three';
 import { createStage } from './render/stage.js';
 import { createFx } from './render/fx.js';
+import { createEffects } from './render/effects.js';
 import { renderCameraFor, LENS_DEFAULT, LENS_TYPES, SQUEEZES } from './render/lens.js';
 import { initAssets, loadJson } from './render/assets.js';
 import { allMats, setWire, setBiasUnitsPerStep } from './render/material.js';
@@ -1220,6 +1246,8 @@ const viewport = document.getElementById('viewport');
 const stage = createStage(viewport, { margin: MARGIN });
 const { renderer, scene, camera, controls, world } = stage;
 const head = stage.lights.head;
+// 4U's motion effects, replayed from the game's own effect code (render/effects.js)
+const effects = createEffects(scene);
 
 // post-processing (render/fx.js, the MHGU viewers'), switched in only when an effect is on: with every
 // effect off the frame is the plain renderer.render this app has always drawn. The renderer's tone
@@ -2686,8 +2714,12 @@ function buildLists(){
   monListSel.innerHTML = lists.map(l =>
     '<option value="' + l.id + '">' + (l.label || ('List ' + l.id)) + ' &mdash; ' + (l.clips || []).length + ' clips' +
     (l.shared ? ' (shared)' : '') + '</option>').join('');
-  // a monster opens on its first list in display order
-  if (!lists.some(l => l.id === state.list)) state.list = lists[0] ? lists[0].id : '';
+  // a monster opens on list 0, Motion[1] where it has them (Raven, 2026-10-25: "Make DAs L0 M1 if possible" --
+  // its own list 0 or the one it borrows, 'em001:0'), else on its first list in display order
+  if (!lists.some(l => l.id === state.list)){
+    const l0 = lists.find(l => String(l.id).split(':').pop() === '0');
+    state.list = l0 ? l0.id : lists[0] ? lists[0].id : '';
+  }
   monListSel.value = state.list;
   buildClips();
 }
@@ -2695,8 +2727,11 @@ function buildClips(){
   const clips = (listOf(entry()) || {}).clips || [];
   monClipSel.innerHTML = '<option value="">Bind pose</option>' +
     clips.map(c => '<option value="' + c.clip + '">' + c.clip + ' &mdash; ' + c.dur.toFixed(2) + ' s</option>').join('');
-  // ...and on that list's first clip
-  if (!clips.some(c => c.clip === state.clip)) state.clip = clips[0] ? clips[0].clip : '';
+  // ...and on Motion[1] there (its first part when it is split, _start before _loop), else that list's first clip
+  if (!clips.some(c => c.clip === state.clip)){
+    const m1 = String(state.list).split(':').pop() === '0' && clips.find(c => /^Motion\[1\](_|$)/.test(c.clip));
+    state.clip = m1 ? m1.clip : clips[0] ? clips[0].clip : '';
+  }
   monClipSel.value = state.clip;
 }
 function paintAbout(){
@@ -2953,7 +2988,11 @@ function applyEffects(){
   const n = Object.values(mounted).reduce((s, g) => s + effectCount(g), 0);
   monFxRow.hidden = !n;
   monFx.checked = effectsShown(e);
-  if (!effectsShown(e)) for (const g of Object.values(mounted)) hideEffects(g);
+  // the Frenzied eyes are cond 10's own parts (Raven, 2026-10-25: "On 50, 51 is Frenzied") -- their glow layer
+  // (Rathian's 51, XfB__m02_add) draws with them whatever the effect-layer switch says
+  const frenzy = state.parts && state.parts.c10 && e && e.partTable
+    ? new Set(e.partTable.filter(r => r[2] === 10 && r[3] === 3).map(r => r[0])) : null;
+  if (!effectsShown(e)) for (const g of Object.values(mounted)) hideEffects(g, frenzy);
 }
 function clearMounts(){
   // give the materials and geometry back: a sweep steps through every monster in the game
@@ -3051,6 +3090,7 @@ async function mount(){
     buildGroups(); applyPartState(); paintAbout(); applyUndef(); applyProxy();
     zoneCache = null; await applyHeat(); applyGap();
     placeParts();
+    loadEffects();
   } finally { setLoading(false); }
 }
 // Fan the severed parts around the monster, on the ground, leaving the camera-facing front
@@ -3720,6 +3760,7 @@ function paintAnim(){
 function seekTo(t){
   const act = pose.action;
   if (!act) return;
+  effSeek = true;
   act.paused = true; act.enabled = true;
   act.time = Math.max(0, Math.min(t, clipDur(act)));
   pose.step(poseRoots());
@@ -3849,9 +3890,55 @@ monApex.onchange = async () => {
   state.heatTable = 0;             // the Apex has its own hit-zone record and states
   buildGroups(); buildLists(); applyPartState();
   applyHeat().catch(noteError);
+  loadEffects();
   await play(); saveState();
 };
 monClipSel.onchange = async () => { state.clip = monClipSel.value; await play(); saveState(); };
+
+// ---- motion effects ------------------------------------------------------------------------
+// The clip on screen for render/effects.js: its list, clip name and time. A time that went back with no seek is a
+// loop wrap (the game keeps last frame's bits across one); a seek starts the effects over.
+let effPrevTime = 0, effSeek = false;
+function effectInfo(){
+  const act = pose.action, e = entry(), l = listOf(e), c = clipOf(l);
+  if (!act || !c) return null;
+  const t = act.time, wrapped = !effSeek && t < effPrevTime && act.loop === THREE.LoopRepeat;
+  effSeek = false; effPrevTime = t;
+  return { list: l.id, clip: c.clip, time: t, wrapped };
+}
+// Motion effects draw unless the Debug switch is off (state.motionFx === false), as GU's always do.
+function loadEffects(){
+  const e = entry(), on = state.motionFx !== false;
+  effects.set(on);
+  effects.conditions(state.motionFxCond !== false);
+  document.getElementById('monMotionFx').checked = on;
+  document.getElementById('monMotionFxCond').checked = state.motionFxCond !== false;
+  document.getElementById('monMotionFxCondRow').hidden = !on;
+  document.getElementById('monMotionFxState').value = state.motionFxState || 'normal';
+  effects.state(state.motionFxState || 'normal');
+  const stateRow = document.getElementById('monMotionFxStateRow');
+  const aimRow = document.getElementById('monShotAimRow');
+  stateRow.hidden = true; aimRow.hidden = true;
+  document.getElementById('monShotAim').value = String(state.shotAim || 10);
+  effects.aim(state.shotAim || 10);
+  effects.load(on && e ? (state.apex && e.apex ? e.apex.id : e.id) : null, mounted.main)
+    .then(() => { stateRow.hidden = !(on && effects.hasStates()); aimRow.hidden = !(on && effects.hasAimed()); })
+    .catch(noteError);
+}
+let motionFxLast = '';
+function paintMotionFx(){
+  const el = document.getElementById('monMotionFxInfo');
+  const st = effects.stats();
+  // only the steady case: a live particle count changed every frame and could not be read (Raven, 2026-10-25)
+  const text = state.motionFx !== false && !st.loaded ? 'No recorded effects for this monster yet.' : '';
+  if (text === motionFxLast) return;
+  motionFxLast = text;
+  el.hidden = !text; el.textContent = text;
+}
+document.getElementById('monMotionFx').onchange = ev => { state.motionFx = ev.target.checked; loadEffects(); saveState(); };
+document.getElementById('monMotionFxCond').onchange = ev => { state.motionFxCond = ev.target.checked; effects.conditions(state.motionFxCond); saveState(); };
+document.getElementById('monMotionFxState').onchange = ev => { state.motionFxState = ev.target.value; effects.state(state.motionFxState); saveState(); };
+document.getElementById('monShotAim').onchange = ev => { state.shotAim = +ev.target.value; effects.aim(state.shotAim); saveState(); };
 // placeParts on the way in: the monster may have been posed or resized since it mounted, and
 // the parts are measured against whatever the body is doing right now
 monTail.onchange = () => { state.tail = monTail.checked; applyPartState(); if (state.tail) placeParts(); saveState(); };
@@ -4039,10 +4126,12 @@ document.querySelectorAll('.panel:not([data-keep-open]) > .panel-head').forEach(
 function applySet(o){
   if (!o || typeof o !== 'object') return;
   for (const k of ['id', 'list', 'clip']) if (typeof o[k] === 'string') state[k] = o[k];
-  for (const k of ['loop', 'tail', 'anchor', 'groundLock', 'undef', 'proxy', 'gap', 'zoneShow'])
+  for (const k of ['loop', 'tail', 'anchor', 'groundLock', 'undef', 'proxy', 'gap', 'zoneShow', 'motionFx', 'motionFxCond'])
     if (typeof o[k] === 'boolean') state[k] = o[k];
   // the heat map is a damage-type NAME and a table index, not booleans
   if (typeof o.heat === 'string') state.heat = o.heat;
+  if (['normal', 'rage', 'tired'].indexOf(o.motionFxState) >= 0) state.motionFxState = o.motionFxState;
+  if ([5, 10, 15, 20, 30].indexOf(o.shotAim) >= 0) state.shotAim = o.shotAim;
   if (typeof o.heatTable === 'number') state.heatTable = Math.max(0, o.heatTable | 0);
   // the capsules' colour: Auto or a listed colour's key
   if (o.zoneColour === ZONE_CAPSULE_AUTO || ZONE_CAPSULE_COLOURS.some(c => c.key === o.zoneColour)) state.zoneColour = o.zoneColour;
@@ -4104,6 +4193,8 @@ renderer.setAnimationLoop(() => {
   if (!booted || loadHold > 0) return;
   pose.step(poseRoots());
   if (carryLoop()) pose.step(poseRoots());   // a pass started over: the world group moved on, so lay the bones again
+  effects.update(effectInfo());
+  paintMotionFx();
   followTravel();                          // the orbit camera rides the monster's travel
   inLoopTravel(lastInLoop);
   updateDepthBias();
@@ -4119,7 +4210,7 @@ renderer.setAnimationLoop(() => {
 // ---- dev harness ---------------------------------------------------------------------------
 // window.__view exposes the viewer to a console or a test. __view.shot() renders one frame and POSTs the
 // PNG to dev/serve.py, which writes dev/shots/<run>/<name>.png; __view.sweep() shoots every monster.
-window.__view = { camera, controls, scene, world, renderer, frameAll, pose, state, MON, mounted,
+window.__view = { camera, controls, scene, world, renderer, frameAll, pose, state, MON, mounted, effects,
                   monsterMats, capture: captureHarness, clip: clipHarness, currentSet, applySet,
                   grid: { set: on => { floorGridOn = !!on; paintFloorGrid(); }, info: () => floorGrid.info() } };
 // The Camera, Lighting and Effects panels' hooks, in the MHGU Armor Viewer's shape, so a test can drive them the same

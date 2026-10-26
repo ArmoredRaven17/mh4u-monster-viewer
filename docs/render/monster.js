@@ -420,6 +420,31 @@ export async function clipFor(list, clipName, modelUrl){
   return out;
 }
 
+// The extend map's sample, chained onto the material's own onBeforeCompile (material.js is the shared base and
+// stays as it is). Modulate: diffuseColor.rgb *= extend(UV2). A shader with neither anchor is recorded in
+// extendMisses rather than drawn without the map in silence (GU's lesson: an injection can miss and compile).
+export const extendMisses = [];
+function applyExtendMap(mat, path, jobs){
+  const u = { value: null };
+  const prev = mat.onBeforeCompile, prevKey = mat.customProgramCacheKey;
+  mat.onBeforeCompile = function (sh, r){
+    if (prev) prev.call(this, sh, r);
+    sh.uniforms.uExtMap = u;
+    sh.vertexShader = sh.vertexShader
+      .replace('void main() {', '#ifndef USE_UV1\nattribute vec2 uv1;\n#endif\nvarying vec2 vExtUv;\nvoid main() {')
+      .replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvExtUv = uv1;');
+    const EXT = '\n\tdiffuseColor.rgb *= texture2D( uExtMap, vExtUv ).rgb;';
+    let f = sh.fragmentShader.replace('void main() {', 'uniform sampler2D uExtMap;\nvarying vec2 vExtUv;\nvoid main() {');
+    const A_INC = '#include <map_fragment>', A_TINT = 'diffuseColor.a *= mix( 1.0, texel.a, uAlphaCut );';
+    if (f.indexOf(A_INC) >= 0) f = f.replace(A_INC, A_INC + EXT);
+    else if (f.indexOf(A_TINT) >= 0) f = f.replace(A_TINT, A_TINT + EXT);
+    else extendMisses.push(mat.name || '?');
+    sh.fragmentShader = f;
+  };
+  mat.customProgramCacheKey = function (){ return (prevKey ? prevKey.call(this) : '') + '|extendMap'; };
+  jobs.push(getTexture(path).then(t => { u.value = t; mat.needsUpdate = true; }));
+}
+
 // ---- the model ------------------------------------------------------------------------------
 // rec: a model record of monsters.json (the monster itself, or one of its `parts`). ctx: { wire }
 export async function loadMonster(rec, ctx){
@@ -467,6 +492,14 @@ export async function loadMonster(rec, ctx){
     if (rom && rom.albedo) jobs.push(getTexture(rom.albedo).then(t => {
       mat.map = t; if (mat.userData.emissiveFromMap) mat.emissiveMap = t;
       mat.needsUpdate = true; }));
+    // THE SECOND ALBEDO MAP (the .mrl's tExtendMap, materials.json t.extend). The shaders take it through
+    // UV_Extend, the vertex's second TexCoord (LtShaderPackage.lfx IABGBase), which the build puts back as
+    // TEXCOORD_1 (glbtools.add_uv2). Without it Molten Tigrex's rage veins drew the vein atlas through the
+    // body's UVs: large white layers (Raven, 2026-10-25). The combine is GU's, READ there for the same layer
+    // (Tigrex m01_angry, TypeExtendModulate: albedo(UV1) * extend(UV2)); 4U's own combiner setup is not read.
+    const extI = rom && rom.m && rom.m.t && rom.m.t.extend;
+    const extPath = extI && rom.entry && (rom.entry.tex || [])[extI - 1];
+    if (extPath && o.geometry.attributes.uv1) applyExtendMap(mat, extPath, jobs);
   });
   await Promise.all(jobs);
   root.userData.joints = rec.joints || [];
@@ -495,8 +528,10 @@ export function setUndefinedMaterialVisible(root, on){
 }
 // Hide the effect layers (userData.effect). Showing them leaves them as the parts table drew them, so it
 // runs AFTER applyParts and only ever turns meshes off.
-export function hideEffects(root){
-  root.traverse(o => { if (o.userData.effect) o.visible = false; });
+// keep: part ids (Group[N]) to leave as the parts table drew them -- the Frenzied eyes' glow while Frenzy is on
+export function hideEffects(root, keep){
+  const partOf = o => { for (let p = o; p; p = p.parent){ const m = /^Group(\d+)(?:_\d+)?$/.exec(p.name || ''); if (m) return +m[1]; } return null; };
+  root.traverse(o => { if (o.userData.effect && !(keep && keep.has(partOf(o)))) o.visible = false; });
 }
 export function effectCount(root){
   let n = 0;

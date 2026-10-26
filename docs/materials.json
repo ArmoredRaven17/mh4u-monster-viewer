@@ -1,5 +1,5 @@
 {
- "_about": "MH4U .mrl v0x20 read through LtShaderPackage.lfx (MFX v52) by mrl.py (the 4U Armor Viewer's): t.albedo is the tAlbedoMap binding (1-based into tex), s the blend-state record (BSSolid/BSBlendAlpha/BSAddAlpha/BSRevSubAlpha). Normal, LUT and extend maps are not drawn. f: the transparency feature, AlphaConstant (the map alpha) on every BSBlendAlpha material: 4U MRLs select no features, so the blend state decides.",
+ "_about": "MH4U .mrl v0x20 read through LtShaderPackage.lfx (MFX v52) by mrl.py (the 4U Armor Viewer's): t.albedo is the tAlbedoMap binding (1-based into tex), s the blend-state record (BSSolid/BSBlendAlpha/BSAddAlpha/BSRevSubAlpha). Normal and LUT maps are not drawn; t.extend is the tExtendMap binding, sampled through the glb's TEXCOORD_1 (UV_Extend). f: the transparency feature, AlphaConstant (the map alpha) on every BSBlendAlpha material: 4U MRLs select no features, so the blend state decides.",
  "state": [
   {
    "blend": "opaque"
@@ -526,7 +526,8 @@
     },
     "XfBA_A0__m01_angry": {
      "t": {
-      "albedo": 5
+      "albedo": 5,
+      "extend": 5
      },
      "s": 2,
      "extendMap": true
@@ -592,7 +593,8 @@
     },
     "XfBA_A0__m01_angry": {
      "t": {
-      "albedo": 5
+      "albedo": 5,
+      "extend": 5
      },
      "s": 2,
      "extendMap": true
@@ -1564,7 +1566,8 @@
    "mats": {
     "XfB__E_m01_body": {
      "t": {
-      "albedo": 5
+      "albedo": 5,
+      "extend": 2
      },
      "s": 0,
      "extendMap": true
@@ -1583,7 +1586,8 @@
     },
     "XfBA_A0__m04__kekkan": {
      "t": {
-      "albedo": 7
+      "albedo": 7,
+      "extend": 6
      },
      "s": 2,
      "extendMap": true
@@ -1596,7 +1600,8 @@
     },
     "XfB__E_m00_face": {
      "t": {
-      "albedo": 1
+      "albedo": 1,
+      "extend": 2
      },
      "s": 0,
      "extendMap": true
@@ -1714,10 +1719,11 @@
    "mats": {
     "XfBA_A0__m03_blood": {
      "t": {
-      "albedo": 1
+      "albedo": 1,
+      "extend": 5
      },
-     "extendMap": true,
-     "s": 3
+     "s": 3,
+     "extendMap": true
     },
     "XfB_N__E_m01_body": {
      "t": {
@@ -1762,10 +1768,11 @@
    "mats": {
     "XfBA_A0__m03_blood": {
      "t": {
-      "albedo": 1
+      "albedo": 1,
+      "extend": 2
      },
-     "extendMap": true,
-     "s": 3
+     "s": 3,
+     "extendMap": true
     },
     "XfB_N__E_m01_body": {
      "t": {
@@ -3113,7 +3120,8 @@
     },
     "XfBA_AW_0__m01_angry": {
      "t": {
-      "albedo": 5
+      "albedo": 5,
+      "extend": 5
      },
      "s": 2,
      "extendMap": true

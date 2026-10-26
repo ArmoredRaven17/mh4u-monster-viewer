@@ -79,6 +79,32 @@ Both script headers are the long reference. Worth knowing:
   (`zoneRec`), and Dalamadur's two units (em024 + em083, em110 + em111) merged into one record, tail half
   at slots 8-15. Column 9 is `col9`, unnamed: don't call it Exhaust until the code says so.
 
+- **The second UV is put back** (`glbtools.add_uv2`, run by `ship_model`): 44-byte meshes (0x866B6018: Tigrex,
+  Brute Tigrex, Akantor, Khezu, Red Khezu, Molten Tigrex) are repacked to 36 bytes for mod_to_gltf, which drops
+  their uv2; the build copies it back from the .mod as TEXCOORD_1. The shaders take it as UV_Extend
+  (LtShaderPackage.lfx IABGBase), the UV of the second albedo map (`tExtendMap`, materials.json `t.extend`),
+  which monster.js `applyExtendMap` modulates in (GU's TypeExtendModulate for the same layer; 4U's own combiner
+  is not read). Without it Molten Tigrex's rage veins drew as large white layers (Raven, 2026-10-25).
+  `scripts/reship_uv2.py` re-ships just those models without a full build.
+- **Motion effects are recorded from 4U's own effect code** (GU's method; Raven, 2026-10-24, Flying Wyverns
+  first). Two steps, both needing `C:\MH4U-Extract`:
+  `python scripts/build_effects.py --flying` writes `docs/effects/<em>.json` (the `.mef` records with paths
+  from the game's own resolver, each clip's effect page as bit spans, loop frames), the raw effect files
+  under `docs/effects/files/` and their textures into `docs/tex/`; then
+  `python C:\MH4U-Extract\tools\fx\record_effects.py docs/effects/<em>.json` runs every effect under the
+  unicorn harness (`tools\fx\emu.py` and friends) and writes `<em>.play.json`, the GPU records the Billboard
+  draw wrote per frame. `docs/render/effects.js` replays them (Animation panel, Show Motion Effects).
+  The decode trail, what is READ and what is approximated (the quad size, blend, colour order, follow modes,
+  undrawn Model / Polyline / Polygon / Filter generators), is `C:\MH4U-Extract\notes\effects.md`; the
+  module's header lists the approximations too. `__view.effects.meter(renderer)` counts drawn pixels (GU's
+  draw meter): report draws, not starts.
+- **Shells** (fireballs, ground fires, puffs; Raven, 2026-10-25) are `docs/effects/<em>.shells.json`, from
+  `python C:\MH4U-Extract\tools\shells\build_shells.py <class> ...` (rath tigrex akantor khezu gravios seregios
+  diablos monoblos ukanlos): every action of the class run under the harness with the shells it makes run for
+  real -- the spawn table per clip, each shell kind's motion / landing / effects, their recordings, and the rage
+  entry clips (`states`). Build shells BEFORE `build_effects.py`, which walks their `.efl`s for textures.
+  Notes: `C:\MH4U-Extract\notes\shells.md`; runtime: effects.js SHELLS and THE RAGE ENTRY.
+
 `scripts/mrl.py` is a copy of the MH4U Armor Viewer's; `build_viewer.py` imports that repo's
 `scripts/mh4u.py` for LMD text.
 

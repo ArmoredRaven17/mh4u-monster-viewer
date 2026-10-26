@@ -37,7 +37,7 @@ import parts4u
 import gu_parts      # made part_ui_frozen.json; not run by the build since 2026-10-20 (see attach_parts)
 FROZEN_UI = json.load(open(os.path.join(HERE, 'part_ui_frozen.json'), encoding='utf-8'))['partUi']
 from glbtools import (glb_read, glb_write, merge_skins, flip_v, compact, joints_of, bone_nodes, mod_info,
-                      prim_rows, strip_to_animation, clip_list, MASK_DRAWN)
+                      prim_rows, strip_to_animation, clip_list, MASK_DRAWN, add_uv2)
 import mh4u        # the 4U Armor Viewer's reader: lmd_messages (LMD text)
 
 EXTRACT = r'C:\MH4U-Extract'
@@ -137,6 +137,8 @@ def ship_model(folder, stem, docs, tex_pool, mats_db, shipped, notes):
     mod_path = os.path.join(d, stem + '.mod')
     info = mod_info(mod_path)
     js, bin_ = glb_read(os.path.join(d, stem + '.glb'))
+    # the second UV the repack dropped (UV_Extend, the extend map's): back from the .mod, before the v flip
+    add_uv2(js, bin_, mod_path)
     merge = merge_skins(js, bin_)
     flip_v(js, bin_)
     prims, hide, unmatched, ambiguous = prim_rows(js, info['table'])
@@ -184,7 +186,9 @@ def ship_model(folder, stem, docs, tex_pool, mats_db, shipped, notes):
             rec_m['f'] = FEAT_TEX_ALPHA
         mats_db.setdefault('feat', FEAT)
         if r['slots'].get('tExtendMap'):
-            rec_m['extendMap'] = True      # a second albedo map the basic viewer does not draw
+            # the second albedo map, sampled through UV_Extend (the glb's TEXCOORD_1, add_uv2): its texture slot
+            rec_m['extendMap'] = True
+            rec_m['t']['extend'] = r['slots']['tExtendMap']
         mats[name] = rec_m
     mats_db['monsters'][ref] = {'tex': tex, 'mats': mats}
     mats_db['glb'][rel] = ref
@@ -413,6 +417,46 @@ SPAWN_BITS = {
 }
 
 
+def frenzy_eyes(entry, ui):
+    """THE FRENZIED EYES IN THE EYES ROW (Raven, 2026-10-25, of Rathian: "On 50, 51 is Frenzied / On 9 is normal
+    eyes ... I want the eyes control to go Open / Frenzied / Closed"). 4U's Frenzy parts follow two conditions the
+    rows test: cond 10 (the Frenzy state; the Apex switch sets it) draws them -- 50, 51 on Rathian -- and on most
+    monsters hides the normal eye (9); cond 11 hides them all, normal eye included, which leaves empty sockets. So
+    the two stop being rows of their own: the Eyes row merges them, offering
+      Open      eyes 0, cond 10 off, cond 11 off
+      Frenzied  eyes 0, cond 10 on,  cond 11 off
+      Closed    eyes 1, cond 10 off, cond 11 off
+    and never cond 11. A monster whose Eyes row is already a merge (Kecha Wacha: Open / Half Open / Closed) gets
+    Frenzied after its first item, that item's combination with cond 10 on. Only where the monster has both an eyes
+    row (cond 0) and cond 10; a monster with the Frenzy rows and no eyes row keeps them as they are."""
+    table = entry.get('partTable') or []
+    conds = {r[2] for r in table}
+    if 0 not in conds or 10 not in conds:
+        return ui
+    extra = {'c10': 0}
+    if 11 in conds:
+        extra['c11'] = 0
+    old = next((k for k, v in ui.items() if k.startswith('merge:') and 'eyes' in v.get('merge', [])), None)
+    if old:
+        row = ui.pop(old)
+        opts = [[dict(o, **extra), name] for o, name in row['options']]
+        opts.insert(1, [dict(opts[0][0], c10=1), 'Frenzied'])
+        members = row['merge'] + list(extra)
+        value = row.get('value') or 0
+        rec = dict(row, merge=members, options=opts, value=value + 1 if value >= 1 else value)
+    else:
+        base = ui.pop('eyes', {})
+        rec = {'label': base.get('label') or 'Eyes', 'merge': ['eyes'] + list(extra),
+               'options': [[dict(eyes=0, **extra), 'Open'], [dict(dict(eyes=0, **extra), c10=1), 'Frenzied'],
+                           [dict(eyes=1, **extra), 'Closed']], 'value': 0}
+        if base.get('gu'):
+            rec['gu'] = base['gu']
+    for k in extra:
+        ui.pop(k, None)
+    ui['merge:' + '+'.join(rec['merge'])] = rec
+    return ui
+
+
 def apply_spawn_bits(entry, ui):
     bits = SPAWN_BITS.get(entry.get('partsFrom'))
     if bits is None or not entry.get('partTable'):
@@ -562,6 +606,7 @@ def attach_parts(entry, notes):
     for k, v in (manual or {}).items():
         ui[k] = dict(ui.get(k, {}), **v)
     ui = apply_spawn_bits(entry, ui)
+    ui = frenzy_eyes(entry, ui)
     entry['partUi'] = ui or None
     bits = {r[4] & 0xffff for r in entry['partTable'] or [] if r[2] == 1}
     for piece in entry.get('parts', []):

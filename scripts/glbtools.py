@@ -331,3 +331,56 @@ def clip_list(path):
     return out
 
 
+
+
+# ---- the second UV (4U) --------------------------------------------------------------------------
+
+UV2_FMT = {0x866B6018: 44}      # the 36-byte layout, then f32 uv2[2] at +36 (convert_monsters.py REPACK)
+
+
+def add_uv2(js, bin_, mod_path):
+    """TEXCOORD_1 on every primitive cut from a 44-byte .mod mesh (0x866B6018), from the .mod's own uv2.
+    convert_monsters.py repacks those meshes to 36 bytes so mod_to_gltf can read them, which drops uv2;
+    the shaders take it as UV_Extend (LtShaderPackage.lfx, IABGBase: TexCoord #1 -> UV_Extend), the UV the
+    second albedo map (tExtendMap) samples. A primitive is matched to its mesh by vertex count and the
+    exact f32 positions (the glb groups primitives by part, not in table order). Call before flip_v, which
+    flips every TEXCOORD_n alike. Returns the number of primitives given a TEXCOORD_1."""
+    d = open(mod_path, 'rb').read()
+    h = struct.unpack_from('<16I', d, 0)
+    nmesh = struct.unpack_from('<H', d, 8)[0]
+    mo, vb = h[13], h[14]
+    meshes = []
+    for i in range(nmesh):
+        r = d[mo + 48 * i:mo + 48 * (i + 1)]
+        nv, stride = struct.unpack_from('<H', r, 2)[0], r[0xA]
+        first, boff, fmt = struct.unpack_from('<III', r, 0xC)
+        if fmt not in UV2_FMT:
+            continue
+        base = vb + boff + first * stride
+        pos = [struct.unpack_from('<3f', d, base + k * stride) for k in range(nv)]
+        uv2 = [struct.unpack_from('<2f', d, base + k * stride + 36) for k in range(nv)]
+        meshes.append((nv, pos, uv2))
+    if not meshes:
+        return 0
+    n = 0
+    used = set()
+    for me in js['meshes']:
+        for pr in me['primitives']:
+            pa = pr['attributes'].get('POSITION')
+            if pa is None or 'TEXCOORD_1' in pr['attributes']:
+                continue
+            cnt = js['accessors'][pa]['count']
+            cands = [i for i, m in enumerate(meshes) if m[0] == cnt and i not in used]
+            if not cands:
+                continue
+            pos = acc_read(js, bin_, pa)
+            for i in cands:
+                if all(abs(a - b) < 1e-4 for p, q in zip(pos, meshes[i][1]) for a, b in zip(p, q)):
+                    rows = meshes[i][2]
+                    pr['attributes']['TEXCOORD_1'] = acc_append(js, bin_, rows, 5126, 'VEC2',
+                        {'min': [min(r[0] for r in rows), min(r[1] for r in rows)],
+                         'max': [max(r[0] for r in rows), max(r[1] for r in rows)]})
+                    used.add(i)
+                    n += 1
+                    break
+    return n

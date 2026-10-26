@@ -1576,20 +1576,6 @@
       ]
      ]
     },
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em001_00 rows[\"1,9\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "cut1": {
      "label": "Tail",
      "gu": "em001_00 rows[\"8,101\"]",
@@ -1603,6 +1589,42 @@
        "Severed"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em001_00 rows[\"1,9\"]"
     }
    },
    "inGU": true
@@ -3162,19 +3184,55 @@
       ]
      ]
     },
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em002_00 rows[\"1,9\"]",
+    "cut1": {
+     "label": "Tail",
+     "gu": "em002_00 rows[\"8,101\"]",
      "options": [
       [
        0,
-       "Open"
+       "Intact"
       ],
       [
        1,
-       "Closed"
+       "Severed"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em002_00 rows[\"1,9\"]"
     }
    },
    "inGU": true
@@ -4678,7 +4736,119 @@
    ],
    "eyesFrom": "em003",
    "partsFrom": "em003",
-   "partUi": null,
+   "partUi": {
+    "break1": {
+     "label": "Left Wing",
+     "gu": "em001_00 rows[\"4,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em001 (base species, 4U)"
+    },
+    "break2": {
+     "label": "Right Wing",
+     "gu": "em001_00 rows[\"6,7\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em001 (base species, 4U)"
+    },
+    "break6": {
+     "label": "Head",
+     "gu": "em001_00 rows[\"2,3\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em001 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Back",
+     "gu": "em001_00 rows[\"10,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em001 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em001_00 rows[\"8,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em001 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em001_00 rows[\"1,9\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -6180,7 +6350,119 @@
    ],
    "eyesFrom": "em004",
    "partsFrom": "em004",
-   "partUi": null,
+   "partUi": {
+    "break1": {
+     "label": "Left Wing",
+     "gu": "em002_00 rows[\"4,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em002 (base species, 4U)"
+    },
+    "break2": {
+     "label": "Right Wing",
+     "gu": "em002_00 rows[\"6,7\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em002 (base species, 4U)"
+    },
+    "break6": {
+     "label": "Head",
+     "gu": "em002_00 rows[\"2,3\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em002 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Back",
+     "gu": "em002_00 rows[\"10,11\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em002 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em002_00 rows[\"8,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em002 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em002_00 rows[\"1,9\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -7737,20 +8019,6 @@
       ]
      ]
     },
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em001_02 rows[\"1,9\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "cut1": {
      "label": "Tail",
      "gu": "em001_02 rows[\"8,101\"]",
@@ -7764,6 +8032,42 @@
        "Severed"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em001_02 rows[\"1,9\"]"
     }
    },
    "inGU": true
@@ -9287,6 +9591,20 @@
        "Closed"
       ]
      ]
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em002_02 rows[\"8,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ]
     }
    },
    "inGU": true
@@ -10495,6 +10813,41 @@
        "Broken"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
     }
    },
    "inGU": true
@@ -11733,7 +12086,58 @@
    ],
    "eyesFrom": "em008",
    "partsFrom": "em008",
-   "partUi": null,
+   "partUi": {
+    "break6": {
+     "label": "Ears",
+     "gu": "em008_00 rows[\"2,3\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em007 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
+    }
+   },
    "inGU": false
   },
   {
@@ -13026,19 +13430,55 @@
    "eyesFrom": "em009",
    "partsFrom": "em009",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em009_00 rows[\"1,6,7\"]",
+    "break6": {
+     "label": "Crystal",
+     "gu": "em009_00 rows[\"3,4,102\"]",
      "options": [
       [
        0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
        "Open"
       ],
       [
-       1,
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
        "Closed"
       ]
-     ]
+     ],
+     "value": 0,
+     "gu": "em009_00 rows[\"1,6,7\"]"
     }
    },
    "inGU": true,
@@ -14338,7 +14778,59 @@
    ],
    "eyesFrom": "em010",
    "partsFrom": "em010",
-   "partUi": null,
+   "partUi": {
+    "break6": {
+     "label": "Crystal",
+     "gu": "em009_00 rows[\"3,4,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em009 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em009_00 rows[\"1,6,7\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -15789,6 +16281,41 @@
        "Severed"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
     }
    },
    "inGU": true,
@@ -17879,7 +18406,73 @@
    ],
    "eyesFrom": "em012",
    "partsFrom": "em012",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Head",
+     "gu": "em032_00 rows[\"5,6\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em011 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em032_00 rows[\"15,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em011 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
+    }
+   },
    "inGU": false
   },
   {
@@ -18755,7 +19348,58 @@
    ],
    "eyesFrom": "em013",
    "partsFrom": "em013",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Head",
+     "gu": "em015_00 rows[\"2,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       3,
+       "Broken"
+      ]
+     ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em015_00 rows[\"1,3\"]"
+    }
+   },
    "inGU": true
   },
   {
@@ -19647,20 +20291,6 @@
    "eyesFrom": "em014",
    "partsFrom": "em014",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em016_00 rows[\"1,3\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "break0": {
      "label": "Head",
      "gu": "em016_00 rows[\"2,102\"]",
@@ -19674,6 +20304,42 @@
        "Broken"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em016_00 rows[\"1,3\"]"
     }
    },
    "inGU": true
@@ -20598,7 +21264,43 @@
    ],
    "eyesFrom": "em015",
    "partsFrom": "em015",
-   "partUi": null,
+   "partUi": {
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
+    }
+   },
    "inGU": false
   },
   {
@@ -21466,20 +22168,6 @@
    "eyesFrom": "em016",
    "partsFrom": "em016",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em014_00 rows[\"1,3\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "break0": {
      "label": "Head",
      "gu": "em014_00 rows[\"2,102\"]",
@@ -21493,6 +22181,42 @@
        "Broken"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em014_00 rows[\"1,3\"]"
     }
    },
    "inGU": true
@@ -22728,20 +23452,6 @@
    "eyesFrom": "em017",
    "partsFrom": "em017",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em021_00 rows[\"1,8\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "break0": {
      "label": "Head",
      "gu": "em021_00 rows[\"3,102\"]",
@@ -22904,6 +23614,42 @@
      ],
      "gu": "em021_00 rows[\"10,11,101+12+14+13+15+16+17+19+18\"]",
      "value": 0
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em021_00 rows[\"1,8\"]"
     }
    },
    "inGU": true
@@ -24142,7 +24888,221 @@
    ],
    "eyesFrom": "em018",
    "partsFrom": "em018",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Head",
+     "gu": "em021_00 rows[\"3,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em017 (base species, 4U)",
+     "reshaped": [
+      3
+     ]
+    },
+    "break2": {
+     "label": "Left Claw",
+     "gu": "em021_00 rows[\"4,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em017 (base species, 4U)"
+    },
+    "break3": {
+     "label": "Right Claw",
+     "gu": "em021_00 rows[\"6,7\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em017 (base species, 4U)"
+    },
+    "merge:b795_2+b795_4+b795_8+b795_16+b795_32+b795_64+b795_128+b795_256": {
+     "label": "Items",
+     "merge": [
+      "b795_2",
+      "b795_4",
+      "b795_8",
+      "b795_16",
+      "b795_32",
+      "b795_64",
+      "b795_128",
+      "b795_256"
+     ],
+     "options": [
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 0,
+        "b795_8": 0,
+        "b795_16": 0,
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_128": 0,
+        "b795_256": 0
+       },
+       "Nothing"
+      ],
+      [
+       {
+        "b795_2": 1,
+        "b795_4": 0,
+        "b795_8": 0,
+        "b795_16": 0,
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_128": 0,
+        "b795_256": 0
+       },
+       "Bone"
+      ],
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 1,
+        "b795_8": 0,
+        "b795_16": 0,
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_128": 0,
+        "b795_256": 0
+       },
+       "Rock"
+      ],
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 0,
+        "b795_8": 1,
+        "b795_16": 0,
+        "b795_32": 1,
+        "b795_64": 0,
+        "b795_128": 0,
+        "b795_256": 0
+       },
+       "Nitroshroom"
+      ],
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 0,
+        "b795_8": 1,
+        "b795_16": 1,
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_128": 0,
+        "b795_256": 0
+       },
+       "Mopeshroom"
+      ],
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 0,
+        "b795_8": 1,
+        "b795_16": 0,
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_128": 1,
+        "b795_256": 0
+       },
+       "Parashroom"
+      ],
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 0,
+        "b795_8": 1,
+        "b795_16": 0,
+        "b795_32": 0,
+        "b795_64": 1,
+        "b795_128": 0,
+        "b795_256": 0
+       },
+       "Toadstool"
+      ],
+      [
+       {
+        "b795_2": 0,
+        "b795_4": 0,
+        "b795_8": 1,
+        "b795_16": 0,
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_128": 0,
+        "b795_256": 1
+       },
+       "Spotted Mushroom"
+      ]
+     ],
+     "gu": "em021_00 rows[\"10,11,101+12+14+13+15+16+17+19+18\"]",
+     "value": 0,
+     "from": "em017 (base species, 4U)",
+     "reshaped": [
+      15,
+      16,
+      17,
+      18,
+      19
+     ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em021_00 rows[\"1,8\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -25378,6 +26338,105 @@
     },
     "b795_4": {
      "value": 1
+    },
+    "b795_64": {
+     "label": "Arms",
+     "gu": "em023_00 rows[\"12,13\"]",
+     "optionNames": {
+      "0": "Arms"
+     },
+     "hidden": true
+    },
+    "merge:b795_4+b795_16+b795_8+b795_32+b795_20+b795_40": {
+     "label": "Tail",
+     "merge": [
+      "b795_4",
+      "b795_16",
+      "b795_8",
+      "b795_32",
+      "b795_20",
+      "b795_40"
+     ],
+     "options": [
+      [
+       {
+        "b795_4": 1,
+        "b795_16": 0,
+        "b795_8": 0,
+        "b795_32": 0,
+        "b795_20": 0,
+        "b795_40": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "b795_4": 0,
+        "b795_16": 0,
+        "b795_8": 1,
+        "b795_32": 0,
+        "b795_20": 0,
+        "b795_40": 0
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em023_00 rows[\"6,7,8,9,10,101\"]",
+     "value": 0
+    },
+    "break0": {
+     "label": "Head",
+     "gu": "em023_00 rows[\"4,102+5,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "One Horn Broken"
+      ],
+      [
+       2,
+       "Both Horns Broken"
+      ]
+     ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em023_00 rows[\"1,14\"]"
     }
    },
    "inGU": true,
@@ -27518,42 +28577,6 @@
    "eyesFrom": "em020",
    "partsFrom": "em020",
    "partUi": {
-    "merge:eyes+b795_32+b795_64": {
-     "label": "Eyes",
-     "merge": [
-      "eyes",
-      "b795_32",
-      "b795_64"
-     ],
-     "options": [
-      [
-       {
-        "eyes": 0,
-        "b795_32": 1,
-        "b795_64": 0
-       },
-       "Open"
-      ],
-      [
-       {
-        "eyes": 0,
-        "b795_32": 0,
-        "b795_64": 1
-       },
-       "Half Open"
-      ],
-      [
-       {
-        "eyes": 1,
-        "b795_32": 0,
-        "b795_64": 0
-       },
-       "Closed"
-      ]
-     ],
-     "gu": "em065_00 rows[\"1,14,15\"]",
-     "value": 0
-    },
     "merge:b795_1+b795_2+b795_4": {
      "label": "Wing Flaps",
      "merge": [
@@ -27603,6 +28626,93 @@
        "Broken"
       ]
      ]
+    },
+    "merge:b795_8+b795_16": {
+     "label": "Enraged Effect",
+     "merge": [
+      "b795_8",
+      "b795_16"
+     ],
+     "options": [
+      [
+       {
+        "b795_8": 0,
+        "b795_16": 0
+       },
+       "Ear Effect"
+      ]
+     ],
+     "gu": "em065_00 rows[\"12,13\"]",
+     "value": 0,
+     "hidden": true
+    },
+    "break0": {
+     "label": "Ears",
+     "gu": "em065_00 rows[\"5,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "merge:eyes+b795_32+b795_64+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "b795_32",
+      "b795_64",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "b795_32": 1,
+        "b795_64": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "b795_32": 1,
+        "b795_64": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 0,
+        "b795_32": 0,
+        "b795_64": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Half Open"
+      ],
+      [
+       {
+        "eyes": 1,
+        "b795_32": 0,
+        "b795_64": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "gu": "em065_00 rows[\"1,14,15\"]",
+     "value": 0
     }
    },
    "inGU": true
@@ -28626,19 +29736,41 @@
    "eyesFrom": "em021",
    "partsFrom": "em021",
    "partUi": {
-    "eyes": {
+    "merge:eyes+c10+c11": {
      "label": "Eyes",
-     "gu": "em066_00 rows[\"13\"]",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
      "options": [
       [
-       0,
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
        "Open"
       ],
       [
-       1,
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
        "Closed"
       ]
-     ]
+     ],
+     "value": 0,
+     "gu": "em066_00 rows[\"13\"]"
     }
    },
    "inGU": true
@@ -30202,6 +31334,98 @@
       ]
      ],
      "hidden": true
+    },
+    "merge:cut4096+break6": {
+     "label": "Tail",
+     "merge": [
+      "cut4096",
+      "break6"
+     ],
+     "options": [
+      [
+       {
+        "cut4096": 1,
+        "break6": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "cut4096": 1,
+        "break6": 1
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em067_00 rows[\"2,19,20\"]",
+     "value": 0
+    },
+    "merge:b795_32+break1": {
+     "label": "Fin",
+     "merge": [
+      "b795_32",
+      "break1"
+     ],
+     "options": [
+      [
+       {
+        "b795_32": 0,
+        "break1": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "b795_32": 0,
+        "break1": 2
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em067_00 rows[\"17,18,23\"]",
+     "value": 0
+    },
+    "break0": {
+     "label": "Head",
+     "gu": "em067_00 rows[\"11,12,27,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break2": {
+     "label": "Left Front Leg",
+     "gu": "em067_00 rows[\"13,14\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break3": {
+     "label": "Right Front Leg",
+     "gu": "em067_00 rows[\"15,16\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
     }
    },
    "inGU": true
@@ -31823,7 +33047,114 @@
    ],
    "eyesFrom": "em023",
    "partsFrom": "em023",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Beak",
+     "gu": "em068_00 rows[\"3,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "break2": {
+     "label": "Back Crests",
+     "gu": "em068_00 rows[\"0,8,9,100+5,15,103,113\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em068_00 rows[\"7,101,111\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break7": {
+     "label": "Left Rear Leg",
+     "gu": "em068_00 rows[\"12,104\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break6": {
+     "label": "Right Rear Leg",
+     "gu": "em068_00 rows[\"14,105\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em068_00 rows[\"1,10\"]"
+    }
+   },
    "inGU": true
   },
   {
@@ -34611,6 +35942,46 @@
    "eyesFrom": "em025",
    "partsFrom": "em025",
    "partUi": {
+    "merge:cut32768+break0": {
+     "label": "Horn",
+     "merge": [
+      "cut32768",
+      "break0"
+     ],
+     "options": [
+      [
+       {
+        "cut32768": 0,
+        "break0": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "cut32768": 1,
+        "break0": 1
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em076_00 rows[\"5,102\"]",
+     "value": 0
+    },
+    "b795_8": {
+     "label": "Enrage Effect",
+     "gu": "em076_00 rows[\"0,9,100\"]",
+     "options": [
+      [
+       0,
+       "Off"
+      ],
+      [
+       1,
+       "On"
+      ]
+     ],
+     "value": 0
+    },
     "b795_1": {
      "value": 0
     },
@@ -34618,9 +35989,6 @@
      "value": 0
     },
     "b795_4": {
-     "value": 0
-    },
-    "b795_8": {
      "value": 0
     },
     "b795_32": {
@@ -36088,6 +37456,76 @@
     "break5": {
      "label": "Right Rear Leg",
      "gu": "em069_00 rows[\"11,12\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break6": {
+     "label": "Head",
+     "gu": "em069_00 rows[\"1,2\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break1": {
+     "label": "Smaller Legs",
+     "gu": "em069_00 rows[\"3,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break7": {
+     "label": "Tail",
+     "gu": "em069_00 rows[\"8,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break3": {
+     "label": "Left Rear Leg",
+     "gu": "em069_00 rows[\"9,10\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break4": {
+     "label": "Right Front Leg",
+     "gu": "em069_00 rows[\"6,7\"]",
      "options": [
       [
        0,
@@ -41443,6 +42881,14 @@
        "Severed"
       ]
      ]
+    },
+    "break0": {
+     "label": "Horns",
+     "gu": "em072_00 rows[\"4,107+3,106\"]",
+     "optionNames": {
+      "0": "Intact",
+      "2": "Both Horns Broken"
+     }
     }
    },
    "inGU": true
@@ -42887,6 +44333,41 @@
        "Broken"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
     }
    },
    "inGU": true
@@ -45981,6 +47462,20 @@
        "Broken"
       ]
      ]
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em027_00 rows[\"8,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ]
     }
    },
    "inGU": true
@@ -47101,6 +48596,98 @@
        "Closed"
       ]
      ]
+    },
+    "break0": {
+     "label": "Tusks",
+     "gu": "em033_00 rows[\"2,102+3,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "One Tusk Broken"
+      ],
+      [
+       4,
+       "Both Tusks Broken"
+      ]
+     ]
+    },
+    "break1": {
+     "label": "Belly",
+     "gu": "em033_00 rows[\"10,11\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "merge:break2+f954": {
+     "label": "Back",
+     "merge": [
+      "break2",
+      "f954"
+     ],
+     "options": [
+      [
+       {
+        "break2": 0,
+        "f954": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "break2": 2,
+        "f954": 0
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em033_00 rows[\"7,8,9\"]",
+     "value": 0
+    },
+    "break4": {
+     "label": "Left Front Claw",
+     "gu": "em033_00 rows[\"12,13\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "break6": {
+     "label": "Right Front Claw",
+     "gu": "em033_00 rows[\"14,15\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em033_00 rows[\"4,16,101\"]",
+     "optionNames": {
+      "1": "Severed"
+     }
     }
    },
    "inGU": true
@@ -48503,7 +50090,38 @@
    ],
    "eyesFrom": "em035",
    "partsFrom": "em035",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "em011_00 rows[\"1\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ],
+     "from": "em034 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Horn",
+     "gu": "em011_00 rows[\"2,102,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em034 (base species, 4U)"
+    }
+   },
    "inGU": false
   },
   {
@@ -51116,7 +52734,38 @@
    "eyesClosedParts": [],
    "eyesFrom": "em037",
    "partsFrom": "em037",
-   "partUi": null,
+   "partUi": {
+    "break6": {
+     "label": "Head",
+     "gu": "em003_00 rows[\"1\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em036 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Body",
+     "gu": "em003_00 rows[\"2\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       3,
+       "Broken"
+      ]
+     ],
+     "from": "em036 (base species, 4U)"
+    }
+   },
    "inGU": false
   },
   {
@@ -52400,19 +54049,41 @@
       ]
      ]
     },
-    "eyes": {
+    "merge:eyes+c10+c11": {
      "label": "Eyes",
-     "gu": "em004_00 rows[\"1,9\"]",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
      "options": [
       [
-       0,
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
        "Open"
       ],
       [
-       1,
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
        "Closed"
       ]
-     ]
+     ],
+     "value": 0,
+     "gu": "em004_00 rows[\"1,9\"]"
     }
    },
    "inGU": true
@@ -53657,7 +55328,92 @@
    ],
    "eyesFrom": "em039",
    "partsFrom": "em039",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Back",
+     "gu": "em004_00 rows[\"7,8\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em038 (base species, 4U)",
+     "reshaped": [
+      7
+     ]
+    },
+    "break6": {
+     "label": "Belly",
+     "gu": "em004_00 rows[\"2,3\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em038 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em004_00 rows[\"6,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em038 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em004_00 rows[\"1,9\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -55066,19 +56822,41 @@
       ]
      ]
     },
-    "eyes": {
+    "merge:eyes+c10+c11": {
      "label": "Eyes",
-     "gu": "em005_00 rows[\"1,19\"]",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
      "options": [
       [
-       0,
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
        "Open"
       ],
       [
-       1,
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
        "Closed"
       ]
-     ]
+     ],
+     "value": 0,
+     "gu": "em005_00 rows[\"1,19\"]"
     }
    },
    "inGU": true,
@@ -56919,7 +58697,168 @@
    ],
    "eyesFrom": "em041",
    "partsFrom": "em041",
-   "partUi": null,
+   "partUi": {
+    "break5": {
+     "label": "Head",
+     "gu": "em005_00 rows[\"2,3\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "break1": {
+     "label": "Left Wing",
+     "gu": "em005_00 rows[\"4,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "break2": {
+     "label": "Right Wing",
+     "gu": "em005_00 rows[\"6,7\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "break3": {
+     "label": "Left Leg",
+     "gu": "em005_00 rows[\"12,13\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "break4": {
+     "label": "Right Leg",
+     "gu": "em005_00 rows[\"14,15\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Back",
+     "gu": "em005_00 rows[\"16,17\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "break6": {
+     "label": "Belly",
+     "gu": "em005_00 rows[\"8,9+10,11\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Cracked"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em005_00 rows[\"18,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em040 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em005_00 rows[\"1,19\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -58077,26 +60016,48 @@
    "eyesFrom": "em042",
    "partsFrom": "em042",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em043_00 rows[\"7\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "cut1": {
      "label": "Tail",
      "gu": "em043_00 rows[\"8,9,101\"]",
      "optionNames": {
       "1": "Severed"
      }
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em043_00 rows[\"7\"]"
     }
    },
    "inGU": true,
@@ -60949,20 +62910,6 @@
    "eyesFrom": "em044",
    "partsFrom": "em044",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em063_00 rows[\"3,19\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "merge:break0+b795_8+b795_16+b795_2+b795_4": {
      "label": "Horn",
      "merge": [
@@ -61051,6 +62998,42 @@
     },
     "b795_1": {
      "value": 0
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em063_00 rows[\"3,19\"]"
     }
    },
    "inGU": true,
@@ -62321,6 +64304,114 @@
     },
     "b795_32": {
      "value": 1
+    },
+    "b795_1": {
+     "label": "Body",
+     "gu": "em023_05 rows[\"2,3\"]",
+     "optionNames": {
+      "0": "Body"
+     },
+     "hidden": true
+    },
+    "b795_64": {
+     "label": "Arms",
+     "gu": "em023_05 rows[\"12,13\"]",
+     "optionNames": {
+      "0": "Arms"
+     },
+     "hidden": true
+    },
+    "merge:b795_4+b795_16+b795_8+b795_32+b795_20+b795_40": {
+     "label": "Tail",
+     "merge": [
+      "b795_4",
+      "b795_16",
+      "b795_8",
+      "b795_32",
+      "b795_20",
+      "b795_40"
+     ],
+     "options": [
+      [
+       {
+        "b795_4": 0,
+        "b795_16": 1,
+        "b795_8": 0,
+        "b795_32": 0,
+        "b795_20": 0,
+        "b795_40": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "b795_4": 0,
+        "b795_16": 0,
+        "b795_8": 0,
+        "b795_32": 1,
+        "b795_20": 0,
+        "b795_40": 0
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em023_05 rows[\"6,7,8,9,10,101\"]",
+     "value": 1,
+     "hidden": true
+    },
+    "break0": {
+     "label": "Head",
+     "gu": "em023_05 rows[\"4,102+5,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "One Horn Broken"
+      ],
+      [
+       2,
+       "Both Horns Broken"
+      ]
+     ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em023_05 rows[\"1,14\"]"
     }
    },
    "inGU": true
@@ -64666,20 +66757,6 @@
    "eyesFrom": "em047",
    "partsFrom": "em047",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em061_00 rows[\"1,4\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "break0": {
      "label": "Ears",
      "gu": "em061_00 rows[\"2,3\"]",
@@ -64693,6 +66770,42 @@
        "Broken"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em061_00 rows[\"1,4\"]"
     }
    },
    "inGU": true
@@ -66270,20 +68383,6 @@
    "eyesFrom": "em048",
    "partsFrom": "em048",
    "partUi": {
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em057_00 rows[\"1,26\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "cut1": {
      "label": "Tail",
      "gu": "em057_00 rows[\"14,101\"]",
@@ -66374,6 +68473,42 @@
      ],
      "gu": "em057_00 rows[\"7,8,10,11,12\"]",
      "value": 0
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em057_00 rows[\"1,26\"]"
     }
    },
    "inGU": true,
@@ -68557,6 +70692,102 @@
    "eyesFrom": "em049",
    "partsFrom": "em049",
    "partUi": {
+    "cut1": {
+     "label": "Tail",
+     "gu": "em057_00 rows[\"14,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em048 (base species, 4U)"
+    },
+    "break3": {
+     "label": "Left Claw",
+     "gu": "em057_00 rows[\"19,20,24\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em048 (base species, 4U)"
+    },
+    "break4": {
+     "label": "Right Claw",
+     "gu": "em057_00 rows[\"21,22,25\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em048 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Head",
+     "gu": "em057_00 rows[\"2,3,4,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Cracked"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em048 (base species, 4U)"
+    },
+    "merge:b795_32+b795_64+b795_8+b795_16": {
+     "label": "Back",
+     "merge": [
+      "b795_32",
+      "b795_64",
+      "b795_8",
+      "b795_16"
+     ],
+     "options": [
+      [
+       {
+        "b795_32": 1,
+        "b795_64": 0,
+        "b795_8": 0,
+        "b795_16": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "b795_32": 0,
+        "b795_64": 0,
+        "b795_8": 1,
+        "b795_16": 0
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em057_00 rows[\"7,8,10,11,12\"]",
+     "value": 0,
+     "from": "em048 (base species, 4U)"
+    },
     "b795_1": {
      "value": 0
     },
@@ -68566,20 +70797,44 @@
     "b795_4": {
      "value": 0
     },
-    "b795_8": {
-     "value": 0
-    },
-    "b795_16": {
-     "value": 0
-    },
-    "b795_32": {
-     "value": 1
-    },
-    "b795_64": {
-     "value": 0
-    },
     "b795_128": {
      "value": 0
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em057_00 rows[\"1,26\"]"
     }
    },
    "inGU": false
@@ -69123,7 +71378,22 @@
    ],
    "eyesFrom": "em050",
    "partsFrom": "em050",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems042_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -72768,7 +75038,22 @@
    ],
    "eyesFrom": "em056",
    "partsFrom": "em056",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems034_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -74051,7 +76336,22 @@
    ],
    "eyesFrom": "em058",
    "partsFrom": "em058",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems009_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -74695,7 +76995,22 @@
    ],
    "eyesFrom": "em059",
    "partsFrom": "em059",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems010_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -75353,7 +77668,22 @@
    ],
    "eyesFrom": "em060",
    "partsFrom": "em060",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems011_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -75893,7 +78223,22 @@
    ],
    "eyesFrom": "em061",
    "partsFrom": "em061",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems019_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -76906,7 +79251,22 @@
    ],
    "eyesFrom": "em063",
    "partsFrom": "em063",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eyes",
+     "gu": "ems022_00 rows[\"0,1,100\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -79687,7 +82047,40 @@
    "eyesClosedParts": [],
    "eyesFrom": "em067",
    "partsFrom": "em067",
-   "partUi": null,
+   "partUi": {
+    "merge:b795_1+b795_2": {
+     "label": "Abdomen",
+     "merge": [
+      "b795_1",
+      "b795_2"
+     ],
+     "options": [
+      [
+       {
+        "b795_1": 0,
+        "b795_2": 0
+       },
+       "Empty"
+      ],
+      [
+       {
+        "b795_1": 1,
+        "b795_2": 0
+       },
+       "Full (Various Foods)"
+      ],
+      [
+       {
+        "b795_1": 1,
+        "b795_2": 1
+       },
+       "Full (Golden)"
+      ]
+     ],
+     "gu": "ems027_00 rows[\"0,1,2,3,100\"]",
+     "value": 0
+    }
+   },
    "inGU": true
   },
   {
@@ -90396,6 +92789,21 @@
    "eyesFrom": "em080",
    "partsFrom": "em080",
    "partUi": {
+    "cut1": {
+     "label": "Tail",
+     "gu": "em032_00 rows[\"15,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em011 (base species, 4U)"
+    },
     "b795_1": {
      "value": 0
     },
@@ -91918,7 +94326,53 @@
    ],
    "eyesFrom": "em082",
    "partsFrom": "em082",
-   "partUi": null,
+   "partUi": {
+    "eyes": {
+     "label": "Eye",
+     "gu": "em024_00 rows[\"1\"]",
+     "options": [
+      [
+       0,
+       "Open"
+      ],
+      [
+       1,
+       "Closed"
+      ]
+     ],
+     "from": "em031 (base species, 4U)"
+    },
+    "b795_1": {
+     "label": "Horns",
+     "gu": "em024_00 rows[\"2,3\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em031 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em024_00 rows[\"8,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em031 (base species, 4U)"
+    }
+   },
    "inGU": false
   },
   {
@@ -95257,19 +97711,41 @@
       ]
      ]
     },
-    "eyes": {
+    "merge:eyes+c10+c11": {
      "label": "Eyes",
-     "gu": "em077_00 rows[\"1\"]",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
      "options": [
       [
-       0,
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
        "Open"
       ],
       [
-       1,
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
        "Closed"
       ]
-     ]
+     ],
+     "value": 0,
+     "gu": "em077_00 rows[\"1\"]"
     }
    },
    "inGU": true,
@@ -99231,32 +101707,153 @@
    "eyesFrom": "em090",
    "partsFrom": "em090",
    "partUi": {
-    "b795_1": {
-     "value": 1
+    "merge:b795_1+b795_2+b795_4": {
+     "label": "Wing Flaps",
+     "merge": [
+      "b795_1",
+      "b795_2",
+      "b795_4"
+     ],
+     "options": [
+      [
+       {
+        "b795_1": 1,
+        "b795_2": 0,
+        "b795_4": 0
+       },
+       "Tucked"
+      ],
+      [
+       {
+        "b795_1": 0,
+        "b795_2": 0,
+        "b795_4": 1
+       },
+       "Partial"
+      ],
+      [
+       {
+        "b795_1": 0,
+        "b795_2": 1,
+        "b795_4": 0
+       },
+       "Full"
+      ]
+     ],
+     "gu": "em065_00 rows[\"2,3,4,102\"]",
+     "value": 0,
+     "from": "em020 (base species, 4U)"
     },
-    "b795_2": {
-     "value": 0
+    "break5": {
+     "label": "Tail",
+     "gu": "em065_00 rows[\"10,11\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em020 (base species, 4U)"
     },
-    "b795_4": {
-     "value": 0
+    "merge:b795_8+b795_16": {
+     "label": "Enraged Effect",
+     "merge": [
+      "b795_8",
+      "b795_16"
+     ],
+     "options": [
+      [
+       {
+        "b795_8": 0,
+        "b795_16": 0
+       },
+       "Ear Effect"
+      ]
+     ],
+     "gu": "em065_00 rows[\"12,13\"]",
+     "value": 0,
+     "hidden": true,
+     "from": "em020 (base species, 4U)"
     },
-    "b795_8": {
-     "value": 0
-    },
-    "b795_16": {
-     "value": 0
-    },
-    "b795_32": {
-     "value": 1
-    },
-    "b795_64": {
-     "value": 0
+    "break0": {
+     "label": "Ears",
+     "gu": "em065_00 rows[\"5,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em020 (base species, 4U)"
     },
     "b795_128": {
      "value": 0
     },
     "b795_256": {
      "value": 0
+    },
+    "merge:eyes+b795_32+b795_64+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "b795_32",
+      "b795_64",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "b795_32": 1,
+        "b795_64": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "b795_32": 1,
+        "b795_64": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 0,
+        "b795_32": 0,
+        "b795_64": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Half Open"
+      ],
+      [
+       {
+        "eyes": 1,
+        "b795_32": 0,
+        "b795_64": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "gu": "em065_00 rows[\"1,14,15\"]",
+     "value": 0,
+     "from": "em020 (base species, 4U)"
     }
    },
    "inGU": false
@@ -100279,7 +102876,44 @@
    ],
    "eyesFrom": "em091",
    "partsFrom": "em091",
-   "partUi": null,
+   "partUi": {
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em066_00 rows[\"13\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -101643,7 +104277,65 @@
    "eyesClosedParts": [],
    "eyesFrom": "em092",
    "partsFrom": "em092",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Head",
+     "gu": "em067_00 rows[\"11,12,27,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em022 (base species, 4U)",
+     "reshaped": [
+      11,
+      12
+     ]
+    },
+    "break2": {
+     "label": "Left Front Leg",
+     "gu": "em067_00 rows[\"13,14\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em022 (base species, 4U)",
+     "reshaped": [
+      13,
+      14
+     ]
+    },
+    "break3": {
+     "label": "Right Front Leg",
+     "gu": "em067_00 rows[\"15,16\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em022 (base species, 4U)",
+     "reshaped": [
+      15,
+      16
+     ]
+    }
+   },
    "inGU": false
   },
   {
@@ -103207,7 +105899,119 @@
    ],
    "eyesFrom": "em093",
    "partsFrom": "em093",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Beak",
+     "gu": "em068_00 rows[\"3,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em023 (base species, 4U)"
+    },
+    "break2": {
+     "label": "Back Crests",
+     "gu": "em068_00 rows[\"0,8,9,100+5,15,103,113\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em023 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em068_00 rows[\"7,101,111\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em023 (base species, 4U)"
+    },
+    "break7": {
+     "label": "Left Rear Leg",
+     "gu": "em068_00 rows[\"12,104\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em023 (base species, 4U)"
+    },
+    "break6": {
+     "label": "Right Rear Leg",
+     "gu": "em068_00 rows[\"14,105\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em023 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em068_00 rows[\"1,10\"]"
+    }
+   },
    "inGU": false,
    "apex": {
     "id": "em120",
@@ -105443,6 +108247,52 @@
    "eyesFrom": "em094",
    "partsFrom": "em094",
    "partUi": {
+    "merge:cut32768+break0": {
+     "label": "Horn",
+     "merge": [
+      "cut32768",
+      "break0"
+     ],
+     "options": [
+      [
+       {
+        "cut32768": 0,
+        "break0": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "cut32768": 1,
+        "break0": 1
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em076_00 rows[\"5,102\"]",
+     "value": 0,
+     "from": "em025 (base species, 4U)",
+     "reshaped": [
+      5,
+      102
+     ]
+    },
+    "b795_8": {
+     "label": "Enrage Effect",
+     "gu": "em076_00 rows[\"0,9,100\"]",
+     "options": [
+      [
+       0,
+       "Off"
+      ],
+      [
+       1,
+       "On"
+      ]
+     ],
+     "from": "em025 (base species, 4U)",
+     "value": 0
+    },
     "b795_1": {
      "value": 0
     },
@@ -105450,9 +108300,6 @@
      "value": 0
     },
     "b795_4": {
-     "value": 0
-    },
-    "b795_8": {
      "value": 0
     },
     "b795_32": {
@@ -106939,6 +109786,139 @@
    "eyesFrom": "em095",
    "partsFrom": "em095",
    "partUi": {
+    "break2": {
+     "label": "Left Front Leg",
+     "gu": "em069_00 rows[\"4,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      4,
+      5
+     ]
+    },
+    "break5": {
+     "label": "Right Rear Leg",
+     "gu": "em069_00 rows[\"11,12\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      11,
+      12
+     ]
+    },
+    "break6": {
+     "label": "Head",
+     "gu": "em069_00 rows[\"1,2\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      1,
+      2
+     ]
+    },
+    "break1": {
+     "label": "Smaller Legs",
+     "gu": "em069_00 rows[\"3,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      3,
+      101
+     ]
+    },
+    "break7": {
+     "label": "Tail",
+     "gu": "em069_00 rows[\"8,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      8,
+      102
+     ]
+    },
+    "break3": {
+     "label": "Left Rear Leg",
+     "gu": "em069_00 rows[\"9,10\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      9,
+      10
+     ]
+    },
+    "break4": {
+     "label": "Right Front Leg",
+     "gu": "em069_00 rows[\"6,7\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em026 (base species, 4U)",
+     "reshaped": [
+      6,
+      7
+     ]
+    },
     "b795_1": {
      "value": 1
     }
@@ -108319,7 +111299,82 @@
    "eyesClosedParts": [],
    "eyesFrom": "em096",
    "partsFrom": "em096",
-   "partUi": null,
+   "partUi": {
+    "merge:cut16384+break1": {
+     "label": "Back",
+     "merge": [
+      "cut16384",
+      "break1"
+     ],
+     "options": [
+      [
+       {
+        "cut16384": 0,
+        "break1": 0
+       },
+       "Intact"
+      ],
+      [
+       {
+        "cut16384": 1,
+        "break1": 0
+       },
+       "Cracked"
+      ],
+      [
+       {
+        "cut16384": 1,
+        "break1": 3
+       },
+       "Broken"
+      ]
+     ],
+     "gu": "em070_00 rows[\"6,7+8,9\"]",
+     "value": 0,
+     "from": "em027 (base species, 4U)"
+    },
+    "f954": {
+     "label": "Enraged Effect",
+     "gu": "em070_00 rows[\"1,12\"]",
+     "optionNames": {
+      "0": "Additive Layer"
+     },
+     "hidden": true,
+     "from": "em027 (base species, 4U)"
+    },
+    "cut32768": {
+     "label": "Claws",
+     "gu": "em070_00 rows[\"10,11\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em027 (base species, 4U)"
+    },
+    "b795_1": {
+     "label": "Web",
+     "gu": "em070_00 rows[\"13\"]",
+     "options": [
+      [
+       0,
+       "Off"
+      ],
+      [
+       1,
+       "On"
+      ]
+     ],
+     "value": 1,
+     "hidden": true,
+     "from": "em027 (base species, 4U)"
+    }
+   },
    "inGU": false
   },
   {
@@ -112782,20 +115837,6 @@
       ]
      ]
     },
-    "eyes": {
-     "label": "Eyes",
-     "gu": "em007_00 rows[\"1,5\"]",
-     "options": [
-      [
-       0,
-       "Open"
-      ],
-      [
-       1,
-       "Closed"
-      ]
-     ]
-    },
     "cut1": {
      "label": "Tail",
      "gu": "em007_00 rows[\"4,101\"]",
@@ -112809,6 +115850,42 @@
        "Severed"
       ]
      ]
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em007_00 rows[\"1,5\"]"
     }
    },
    "inGU": true,
@@ -114560,7 +117637,93 @@
    ],
    "eyesFrom": "em100",
    "partsFrom": "em100",
-   "partUi": null,
+   "partUi": {
+    "break6": {
+     "label": "Horns",
+     "gu": "em007_00 rows[\"2,102+3,103\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "One Horn Broken"
+      ],
+      [
+       2,
+       "Both Horns Broken"
+      ]
+     ],
+     "from": "em099 (base species, 4U)"
+    },
+    "break0": {
+     "label": "Back",
+     "gu": "em007_00 rows[\"6,104\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ],
+     "from": "em099 (base species, 4U)"
+    },
+    "cut1": {
+     "label": "Tail",
+     "gu": "em007_00 rows[\"4,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Severed"
+      ]
+     ],
+     "from": "em099 (base species, 4U)"
+    },
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0,
+     "gu": "em007_00 rows[\"1,5\"]"
+    }
+   },
    "inGU": false
   },
   {
@@ -115771,7 +118934,43 @@
    ],
    "eyesFrom": "em101",
    "partsFrom": "em101",
-   "partUi": null,
+   "partUi": {
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
+    }
+   },
    "inGU": false
   },
   {
@@ -116987,7 +120186,43 @@
    ],
    "eyesFrom": "em102",
    "partsFrom": "em102",
-   "partUi": null,
+   "partUi": {
+    "merge:eyes+c10+c11": {
+     "label": "Eyes",
+     "merge": [
+      "eyes",
+      "c10",
+      "c11"
+     ],
+     "options": [
+      [
+       {
+        "eyes": 0,
+        "c10": 0,
+        "c11": 0
+       },
+       "Open"
+      ],
+      [
+       {
+        "eyes": 0,
+        "c10": 1,
+        "c11": 0
+       },
+       "Frenzied"
+      ],
+      [
+       {
+        "eyes": 1,
+        "c10": 0,
+        "c11": 0
+       },
+       "Closed"
+      ]
+     ],
+     "value": 0
+    }
+   },
    "inGU": false
   },
   {
@@ -119425,7 +122660,50 @@
    "eyesClosedParts": [],
    "eyesFrom": "em105",
    "partsFrom": "em105",
-   "partUi": null,
+   "partUi": {
+    "break0": {
+     "label": "Fin",
+     "gu": "em017_00 rows[\"2,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break6": {
+     "label": "Head",
+     "gu": "em017_00 rows[\"3,5\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    },
+    "break7": {
+     "label": "Tail",
+     "gu": "em017_00 rows[\"4,104\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
+      ]
+     ]
+    }
+   },
    "inGU": true
   },
   {
@@ -121379,6 +124657,20 @@
        "Broken"
       ]
      ]
+    },
+    "break6": {
+     "label": "Right Claw",
+     "gu": "em019_00 rows[\"2,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
     }
    },
    "inGU": true
@@ -122580,7 +125872,63 @@
    "eyesClosedParts": [],
    "eyesFrom": "em108",
    "partsFrom": "em108",
-   "partUi": null,
+   "partUi": {
+    "break2": {
+     "label": "Skull Shell",
+     "gu": "em019_00 rows[\"3,4,103,104\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Cracked"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em107 (base species, 4U)",
+     "reshaped": [
+      3,
+      4,
+      103,
+      104
+     ]
+    },
+    "break5": {
+     "label": "Left Claw",
+     "gu": "em019_00 rows[\"1,101\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em107 (base species, 4U)"
+    },
+    "break6": {
+     "label": "Right Claw",
+     "gu": "em019_00 rows[\"2,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ],
+     "from": "em107 (base species, 4U)"
+    }
+   },
    "inGU": false
   },
   {
@@ -127137,6 +130485,52 @@
        "Severed"
       ]
      ]
+    },
+    "break0": {
+     "label": "Jaw",
+     "gu": "em038_00 rows[\"2,3,101,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Cracked"
+      ],
+      [
+       4,
+       "Broken"
+      ]
+     ]
+    },
+    "break4": {
+     "label": "Left Arm",
+     "gu": "em038_00 rows[\"6,105\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
+    },
+    "break6": {
+     "label": "Right Arm",
+     "gu": "em038_00 rows[\"7,106\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       2,
+       "Broken"
+      ]
+     ]
     }
    },
    "inGU": true
@@ -128626,6 +132020,42 @@
       [
        1,
        "Closed"
+      ]
+     ]
+    },
+    "break5": {
+     "label": "Head",
+     "gu": "em013_01 rows[\"2,3,4,5,7,102\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Horn Cracked"
+      ],
+      [
+       2,
+       "Horn Broken"
+      ],
+      [
+       3,
+       "Face Broken"
+      ]
+     ]
+    },
+    "break0": {
+     "label": "Chest",
+     "gu": "em013_01 rows[\"8,9\"]",
+     "options": [
+      [
+       0,
+       "Intact"
+      ],
+      [
+       1,
+       "Broken"
       ]
      ]
     }
